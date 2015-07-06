@@ -100,11 +100,12 @@ module Geocoder::Lookup
     end
 
     def self.check_query_type(query)
+
       options = query.options
       return options[:query_type] if options[:query_type]
 
       query_type = case
-      when options.include?(:priorty)
+      when options.include?(:priority)
         'route_search'
       when options.include?(:include_jibun)
         'reverse_geocoding'
