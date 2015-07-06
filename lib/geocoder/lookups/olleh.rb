@@ -107,12 +107,12 @@ module Geocoder::Lookup
       query_type = case
       when options.include?(:priority)
         'route_search'
-      when options.include?(:include_jibun)
+      when query.reverse_geocode? && options.include?(:isJibun)
         'reverse_geocoding'
       when options.include?(:coord_in)
         'convert_coord'
       when options.include?(:l_code)
-        'address_step_search'
+        'addr_step_search'
       when options.include?(:radius)
         'addr_nearest_position_search'
       else
