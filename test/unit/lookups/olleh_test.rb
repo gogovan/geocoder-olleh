@@ -43,9 +43,13 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_query_for_geocode_address_code_type
-    lookup = Geocoder::Lookup::Olleh.new
-    url = lookup.query_url(Geocoder::Query.new('서울특별시 강남구 삼성동 168-1', {addrcdtype: 'law'}))
-    assert url.include?('addrcdtype%22%3A0%2C'), 'Invalid address parsing'
+    VCR.use_cassette('geocode/samseong-dong-168-1') do
+      lookup = Geocoder::Lookup::Olleh.new
+      query = Geocoder::Query.new('서울특별시 강남구 삼성동 168-1', {addrcdtype: 'law'})
+      result = lookup.search(query).first
+      assert_equal "서울특별시 강남구 삼성동 168-1", result.address
+      assert_equal [961376, 1945766], result.coordinates
+    end
   end
 
   def test_gecode_with_options
