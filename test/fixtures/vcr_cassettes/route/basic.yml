@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/geocode/GetGeocodeByAddr?params=%7B%22addr%22:%22%22,%22addrcdtype%22:null,%22timestamp%22:%2220150706134726644%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 06 Jul 2015 05:46:25 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '192'
+      Set-Cookie:
+      - _WL_AUTHCOOKIE_JSESSIONID=bNY9Bm5VHQ995FdwkGzs; path=/; secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Usedhandler:
+      - IPBasedSLAHandlerREST
+      Nncoection:
+      - close
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sequenceno":"1","errordescription":"Parameter Missing: addr","returncode":"0","transactionid":"06821c20-0ac1-3149-a1e9-c7d8de3e7842","payload":"","errorcode":"200002","returndescription":""}'
+    http_version: 
+  recorded_at: Mon, 06 Jul 2015 05:47:27 GMT
+recorded_with: VCR 2.9.3

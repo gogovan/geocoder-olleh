@@ -6,79 +6,36 @@ Coveralls.wear!
 require 'pry'
 require 'geocoder/olleh'
 
-##
-# Mock HTTP request to geocoding service.
-#
-module Geocoder
-  module Lookup
-    class Base
-      private
+require 'vcr'
 
-      def fixture_exists?(filename)
-        File.exist?(File.join("test", "fixtures", filename))
-      end
+class URIWithoutOllehTimestampMatcher
+  def uri_without_timestamp(request)
+    request.parsed_uri.tap do |uri|
+      return uri unless uri.query # ignore uris without params, e.g. "http://example.com/"
 
-      def read_fixture(file)
-        filepath = File.join("test", "fixtures", file)
-        s = File.read(filepath).strip.gsub(/\n\s*/, "")
-        MockHttpResponse.new(body: s, code: "200")
-      end
-
-      def fixture_prefix
-        handle
-      end
-
-      def fixture_for_query(query)
-        label = query.reverse_geocode? ? "reverse" : query.text.gsub(/[ \.]/, "_")
-        filename = "#{fixture_prefix}_#{label}"
-        fixture_exists?(filename) ? filename : default_fixture_filename
-      end
-
-      remove_method(:make_api_request)
-
-      def make_api_request(query)
-        if query.text.include? "삼성동"
-          read_fixture "olleh_seoul"
-        elsif query.text.include? "960713"
-          read_fixture "olleh_reverse"
-        elsif query.options.include?(:coord_in)
-          read_fixture "olleh_convert_coord"
-        elsif query.options.include?(:priority)
-          read_fixture "olleh_routes"
-        elsif query.options.include?(:l_code)
-          read_fixture "olleh_addr_step_search"
-        elsif query.options.include?(:radius)
-          read_fixture "olleh_nearest_position_search"
-        else
-          read_fixture fixture_for_query(query)
-        end
-      end
-
+      uri.query = uri.query.split('timestamp').first
     end
-
-    class Olleh
-      private
-
-      def default_fixture_filename
-        "olleh_seoul"
-      end
-    end
-
   end
+
+  def call(request_1, request_2)
+    uri_without_timestamp(request_1) == uri_without_timestamp(request_2)
+  end
+
+  def to_proc
+    lambda { |r1, r2| call(r1, r2) }
+  end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'test/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.register_request_matcher(:uri_without_olleh_timestamp, &URIWithoutOllehTimestampMatcher.new)
+  config.default_cassette_options = {
+    match_requests_on: [
+      :method,
+      :uri_without_olleh_timestamp]
+  }
 end
 
 class GeocoderTestCase < Test::Unit::TestCase
-end
-
-class MockHttpResponse
-  attr_reader :code, :body
-  def initialize(options = {})
-    @code = options[:code].to_s
-    @body = options[:body]
-    @headers = options[:headers] || {}
-  end
-
-  def [](key)
-    @headers[key]
-  end
 end
