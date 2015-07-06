@@ -100,27 +100,21 @@ module Geocoder::Lookup
     end
 
     def self.check_query_type(query)
-
-      options = query.options
-      return options[:query_type] if options[:query_type]
-
-      query_type = case
-      when options.include?(:priority)
-        'route_search'
-      when options.include?(:include_jibun)
-        'reverse_geocoding'
-      when options.include?(:coord_in)
-        'convert_coord'
-      when options.include?(:l_code)
-        'address_step_search'
-      when options.include?(:radius)
-        'addr_nearest_position_search'
+      if !query.options.empty? && query.options.include?(:priority)
+        query.options[:query_type] || query.options[:query_type] = "route_search"
+      elsif query.reverse_geocode? && query.options.include?(:include_jibun)
+        query.options[:query_type] || query.options[:query_type] = "reverse_geocoding"
+      elsif !query.options.empty? && query.options.include?(:coord_in)
+        query.options[:query_type] || query.options[:query_type] = "convert_coord"
+      elsif !query.options.empty? && query.options.include?(:l_code)
+        query.options[:query_type] || query.options[:query_type] = "addr_step_search"
+      elsif !query.options.empty? && query.options.include?(:radius)
+        query.options[:query_type] || query.options[:query_type] = "addr_nearest_position_search"
       else
-        'geocoding'
+        query.options[:query_type] || query.options[:query_type] = "geocoding"
       end
-
-      options[:query_type] = query_type
     end
+
 
     private # ----------------------------------------------
 
@@ -168,6 +162,7 @@ module Geocoder::Lookup
         "https://openapi.kt.com/maps/geocode/GetGeocodeByAddr?params="
       end
     end
+
 
     def query_url_params(query)
       case Olleh.check_query_type(query)
