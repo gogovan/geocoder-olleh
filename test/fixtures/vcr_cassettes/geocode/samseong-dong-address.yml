@@ -25,7 +25,7 @@ http_interactions:
       Content-Length:
       - '575'
       Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=]s7NMJgJ0FrLkTf1GlTQ; path=/; secure; HttpOnly
+      - _WL_AUTHCOOKIE_JSESSIONID=Crev6VBZegAptJp0UC5T; path=/; secure; HttpOnly
       Access-Control-Allow-Origin:
       - "*"
       X-Powered-By:
@@ -39,6 +39,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"9b98d80b-c82a-3e81-b9d5-b5ee59730358","payload":"%7B%22RESDATA%22%3A%7B%22COUNT%22%3A1%2C%22ADDRS%22%3A%5B%7B%22DONG_CODE%22%3A%221168010500%22%2C%22ADDRESS%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99%22%2C%22Y%22%3A1946274%2C%22X%22%3A960713%7D%5D%7D%2C%22ID%22%3A%22501%22%2C%22ERRCD%22%3A0%2C%22NO%22%3A%229b98d80b-c82a-3e81-b9d5-b5ee59730358%22%2C%22ERRMS%22%3A%22SUCCESS%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 06 Jul 2015 05:39:27 GMT
 recorded_with: VCR 2.9.3

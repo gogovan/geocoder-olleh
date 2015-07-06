@@ -107,7 +107,7 @@ module Geocoder::Lookup
       query_type = case
       when options.include?(:priority)
         'route_search'
-      when query.reverse_geocode? && options.include?(:isJibun)
+      when query.reverse_geocode? && options.include?(:include_jibun)
         'reverse_geocoding'
       when options.include?(:coord_in)
         'convert_coord'
@@ -135,7 +135,10 @@ module Geocoder::Lookup
       end
 
       case Olleh.check_query_type(query)
-      when "geocoding" || "reverse_geocoding"
+      when "geocoding"
+        return [] if doc['RESDATA']['COUNT'] == 0
+        return doc['RESDATA']["ADDRS"]
+      when "reverse_geocoding"
         return [] if doc['RESDATA']['COUNT'] == 0
         return doc['RESDATA']["ADDRS"]
       when "route_search"
@@ -164,7 +167,7 @@ module Geocoder::Lookup
         "https://openapi.kt.com/maps/search/AddrStepSearch?params="
       when "addr_nearest_position_search"
         "https://openapi.kt.com/maps/search/AddrNearestPosSearch?params="
-      else
+      else #geocoding
         "https://openapi.kt.com/maps/geocode/GetGeocodeByAddr?params="
       end
     end

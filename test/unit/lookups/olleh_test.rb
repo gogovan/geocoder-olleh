@@ -69,6 +69,7 @@ class OllehTest < GeocoderTestCase
 
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
+
       assert_equal '서울특별시 강남구 삼성동', result.address
       assert_equal 'South Korea', result.country
       assert_equal '서울특별시', result.city
@@ -89,8 +90,8 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_reverse_geocoding
-    VCR.use_cassette('reverse-geocode/samsong-dong') do
-      query = Geocoder::Query.new([960713, 1946274],{addrcdtype: 'law', newAddr: 'new', isJibun: 'yes'})
+    VCR.use_cassette('reverse_geocode/samseong-dong') do
+      query = Geocoder::Query.new([960713, 1946274], { addrcdtype: 'law', new_addr_type: 'new', include_jibun: 'yes' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
       assert_equal '서울특별시 강남구 삼성동 74-14', result.address
@@ -102,7 +103,6 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new([960713, 1946274],{coord_in: 'utmk', coord_out: 'wgs84'})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
-
       assert_equal ["127.05543973133743", "37.51491635059331"], result.converted_coord
     end
   end
@@ -197,5 +197,4 @@ class OllehTest < GeocoderTestCase
       assert_equal "서울특별시 강동구 성내동 540", result.position_address
     end
   end
-
 end
