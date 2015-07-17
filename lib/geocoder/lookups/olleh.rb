@@ -182,51 +182,46 @@ module Geocoder::Lookup
           EY: query.options[:end_y],
           RPTYPE: 0,
           COORDTYPE: Olleh.route_coord_types[query.options[:coord_type]] || 7,
-          PRIORITY: Olleh.priority[query.options[:priority]],
-          timestamp:  now
-       }
-       (1..3).each do |x|
+          PRIORITY: Olleh.priority[query.options[:priority]]
+        }
+        (1..3).each do |x|
           s = [query.options[:"vx#{x}"], query.options[:"vy#{x}"]]
           hash.merge!({ "VX#{x}" => s[0], "VY#{x}" => s[1]}) unless s[0].nil? && s[1].nil?
         end
-
-        JSON.generate(hash)
       when "convert_coord"
-        JSON.generate({
+        hash = {
           x: query.text.first,
           y: query.text.last,
           inCoordType: Olleh.coord_types[query.options[:coord_in]],
-          outCoordType: Olleh.coord_types[query.options[:coord_out]],
-          timestamp: now
-       })
+          outCoordType: Olleh.coord_types[query.options[:coord_out]]
+       }
       when "reverse_geocoding"
-        JSON.generate({
+        hash = {
           x: query.text.first,
           y: query.text.last,
           addrcdtype: Olleh.addrcdtype[query.options[:addrcdtype]] || 0,
           newAddr: Olleh.new_addr_types[query.options[:new_addr_type]] || 0,
-          isJibun: Olleh.include_jibun[query.options[:include_jibun]] || 0,
-          timestamp: now
-       })
+          isJibun: Olleh.include_jibun[query.options[:include_jibun]] || 0
+       }
       when "addr_step_search"
-        JSON.generate({
-          l_Code: query.options[:l_code],
-          timestamp: now
-        })
+        hash = {
+          l_Code: query.options[:l_code]
+        }
       when "addr_nearest_position_search"
-        JSON.generate({
+        hash = {
           px: query.options[:px],
           py: query.options[:py],
-          radius: query.options[:radius],
-          timestamp: now
-        })
+          radius: query.options[:radius]
+        }
       else # geocoding
-        JSON.generate({
+        hash = {
           addr: URI.encode(query.sanitized_text),
-          addrcdtype: Olleh.addrcdtype[query.options[:addrcdtype]],
-          timestamp: now
-        })
+          addrcdtype: Olleh.addrcdtype[query.options[:addrcdtype]]
+        }
       end
+
+      hash.merge!(timestamp: now)
+      JSON.generate(hash)
     end
 
     def now
