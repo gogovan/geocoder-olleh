@@ -107,6 +107,7 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new([960713, 1946274],{coord_in: 'utmk', coord_out: 'wgs84'})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
+      # lat, lon
       assert_equal ["127.05543973133743", "37.51491635059331"], result.converted_coord
     end
   end
@@ -131,12 +132,63 @@ class OllehTest < GeocoderTestCase
         end_x: 950000,
         end_y: 1940594,
         priority: 'shortest',
-        coord_type: 'wgs84'
+        coord_type: 'utmk'
       })
+
+      # query = Geocoder::Query.new(
+      #   '', {
+      #   start_x: 126.9882266,
+      #   start_y: 37.5511694,
+      #   end_x: 127.05543973133743,
+      #   end_y: 37.51491635059331,
+      #   priority: 'high_way',
+      #   coord_type: 'wgs84'
+      # })
+
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
       assert_equal '15712', result.total_dist
-      assert_equal '52.25', result.total_time
+      assert_equal '43.05', result.total_time
+    end
+  end
+
+  def test_multi_waypoints_with_different_order_1
+    VCR.use_cassette('route/waypoints_with_different_order_1') do
+      query1 = Geocoder::Query.new(
+          "", {
+          start_x: 957760.25,
+          start_y: 1944925.0,
+          end_x: 946545.625,
+          end_y: 1953371.125,
+          vx1: 956895.0625,
+          vy1: 1942818.5,
+          priority: 'high_way',
+          coord_type: 'utmk'
+        })
+      lookup = Geocoder::Lookup::Olleh.new
+      assert_equal true, lookup.query_url(query1).include?("VX1")
+      result = lookup.search(query1).first
+      assert_equal '23655', result.total_dist
+      assert_equal '37.04', result.total_time
+    end
+
+    VCR.use_cassette('route/waypoints_with_different_order_2') do
+      query2 = Geocoder::Query.new(
+          "", {
+          start_x: 957760.25,
+          start_y: 1944925.0,
+          end_x: 956895.0625,
+          end_y: 1942818.5,
+          vx1: 946545.625,
+          vy1: 1953371.125,
+          priority: 'high_way',
+          coord_type: 'utmk'
+        })
+      lookup = Geocoder::Lookup::Olleh.new
+      assert_equal true, lookup.query_url(query2).include?("VX1")
+      result = lookup.search(query2).first
+      assert_equal '38219', result.total_dist
+      assert_equal '57.01', result.total_time
     end
   end
 
