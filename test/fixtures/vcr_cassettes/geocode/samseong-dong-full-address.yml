@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/geocode/GetGeocodeByAddr?params=%7B%22addr%22:%22%25EC%2584%259C%25EC%259A%25B8%25ED%258A%25B9%25EB%25B3%2584%25EC%258B%259C%2520%25EA%25B0%2595%25EB%2582%25A8%25EA%25B5%25AC%2520%25EC%2582%25BC%25EC%2584%25B1%25EB%258F%2599%2520168-1%22,%22addrcdtype%22:null,%22timestamp%22:%2220150707110308672%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 07 Jul 2015 03:02:03 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '581'
+      Set-Cookie:
+      - _WL_AUTHCOOKIE_JSESSIONID=OZ5VUU9BJzXNchQuLDNS; path=/; secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Usedhandler:
+      - IPBasedSLAHandlerREST
+      Nncoection:
+      - close
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"c7a4a18e-3a70-3aed-bfa8-2f45aec1443e","payload":"%7B%22RESDATA%22%3A%7B%22COUNT%22%3A1%2C%22ADDRS%22%3A%5B%7B%22DONG_CODE%22%3A%221168010500%22%2C%22ADDRESS%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99+168-1%22%2C%22Y%22%3A1945766%2C%22X%22%3A961376%7D%5D%7D%2C%22ID%22%3A%22501%22%2C%22ERRCD%22%3A0%2C%22NO%22%3A%22c7a4a18e-3a70-3aed-bfa8-2f45aec1443e%22%2C%22ERRMS%22%3A%22SUCCESS%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+    http_version: 
+  recorded_at: Tue, 07 Jul 2015 03:03:09 GMT
+recorded_with: VCR 2.9.3

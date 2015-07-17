@@ -34,6 +34,13 @@ class OllehTest < GeocoderTestCase
     end
   end
 
+  def test_search_by_full_address
+    VCR.use_cassette('geocode/samseong-dong-full-address') do
+      result = Geocoder.search("서울특별시 강남구 삼성동 168-1", provider: :olleh)
+      assert_equal [961376, 1945766], result.first.coordinates
+    end
+  end
+
   def test_search_by_landmark
     VCR.use_cassette('geocode/busan-tower') do
       # busan tower
@@ -115,7 +122,7 @@ class OllehTest < GeocoderTestCase
   def test_converting_coordinate_wgs_to_utmk
     # seoul tower
     VCR.use_cassette('convert_coords/wgs84_to_utmk') do
-      query = Geocoder::Query.new([37.5511694,126.9882266],{coord_in: 'wgs84', coord_out: 'utmk'})
+      query = Geocoder::Query.new([37.5511694, 126.9882266],{coord_in: 'wgs84', coord_out: 'utmk'})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
 
