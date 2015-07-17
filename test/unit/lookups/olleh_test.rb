@@ -175,8 +175,8 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal true, lookup.query_url(query1).include?("VX1")
       result = lookup.search(query1).first
-      assert_equal '23655', result.total_dist
-      assert_equal '37.04', result.total_time
+      assert_equal '23790', result.total_dist
+      assert_equal '28.21', result.total_time
     end
 
     VCR.use_cassette('route/waypoints_with_different_order_2') do
@@ -194,8 +194,8 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal true, lookup.query_url(query2).include?("VX1")
       result = lookup.search(query2).first
-      assert_equal '38219', result.total_dist
-      assert_equal '57.01', result.total_time
+      assert_equal '42257', result.total_dist
+      assert_equal '45.08', result.total_time
     end
   end
 
