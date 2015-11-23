@@ -113,6 +113,8 @@ module Geocoder::Lookup
         'convert_coord'
       when options.include?(:l_code)
         'addr_step_search'
+      when options.include?(:sr) && options.include?(:places)
+        'addr_local_search'
       when options.include?(:radius)
         'addr_nearest_position_search'
       else
@@ -165,6 +167,8 @@ module Geocoder::Lookup
         "https://openapi.kt.com/maps/etc/ConvertCoord?params="
       when "addr_step_search"
         "https://openapi.kt.com/maps/search/AddrStepSearch?params="
+      when "addr_local_search"
+        "https://openapi.kt.com/maps/search/km2_LocalSearch?params="
       when "addr_nearest_position_search"
         "https://openapi.kt.com/maps/search/AddrNearestPosSearch?params="
       else #geocoding
@@ -174,6 +178,10 @@ module Geocoder::Lookup
 
     def query_url_params(query)
       case Olleh.check_query_type(query)
+      when "addr_local_search"
+        hash = {
+
+        }
       when "route_search"
         hash = {
           SX: query.options[:start_x],
