@@ -225,6 +225,16 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_addr_step_search
+    # VCR.use_cassette('km2_local_search') do
+      query = Geocoder::Query.new('분당구+689', {places: 5})
+      lookup = Geocoder::Lookup::Olleh.new
+binding.pry
+      result = lookup.search(query)
+
+    # end
+  end
+
+  def test_olleh_addr_step_search
     VCR.use_cassette('address_step_search') do
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
