@@ -19,7 +19,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_search_by_location_name
-    VCR.use_cassette('geocode/samseong-dong') do
+    VCR.use_cassette("geocode/samseong-dong") do
       # samseong dong - the district
       result = Geocoder.search('삼성동', provider: :olleh)
       assert_equal "서울특별시 강남구 삼성동", result.first.address
@@ -27,7 +27,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_search_by_address
-    VCR.use_cassette('geocode/samseong-dong-address') do
+    VCR.use_cassette("geocode/samseong-dong-address") do
       # an address in samseong dong
       result = Geocoder.search('서울특별시 강남구 삼성동', provider: :olleh)
       assert_equal '서울특별시 강남구 삼성동', result.first.address
@@ -35,14 +35,14 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_search_by_full_address
-    VCR.use_cassette('geocode/samseong-dong-full-address') do
+    VCR.use_cassette("geocode/samseong-dong-full-address") do
       result = Geocoder.search("서울특별시 강남구 삼성동 168-1", provider: :olleh)
       assert_equal [961376, 1945766], result.first.coordinates
     end
   end
 
   def test_search_by_landmark
-    VCR.use_cassette('geocode/busan-tower') do
+    VCR.use_cassette("geocode/busan-tower") do
       # busan tower
       result = Geocoder.search('부산타워', provider: :olleh)
       assert_equal [], result
@@ -50,7 +50,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_query_for_geocode_address_code_type
-    VCR.use_cassette('geocode/samseong-dong-168-1') do
+    VCR.use_cassette("geocode/samseong-dong-168-1") do
       lookup = Geocoder::Lookup::Olleh.new
       query = Geocoder::Query.new('서울특별시 강남구 삼성동 168-1', {addrcdtype: 'law'})
       result = lookup.search(query).first
@@ -67,7 +67,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_check_query_type
-    VCR.use_cassette('geocode/samseong-dong-law') do
+    VCR.use_cassette("geocode/samseong-dong-law") do
       query = Geocoder::Query.new('삼성동',{:addrcdtype => 'law'})
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal 2, lookup.search(query).count
@@ -75,7 +75,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_result_components
-    VCR.use_cassette('geocode/samseong-dong-law') do
+    VCR.use_cassette("geocode/samseong-dong-law") do
       query = Geocoder::Query.new('삼성동',{:addrcdtype => 'law'})
 
       lookup = Geocoder::Lookup::Olleh.new
@@ -93,7 +93,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_geocoding_no_result
-    VCR.use_cassette('geocode/no-results') do
+    VCR.use_cassette("geocode/no-results") do
       query = Geocoder::Query.new('no results',{:addrcdtype => 'law'})
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal [], lookup.search(query)
@@ -101,7 +101,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_reverse_geocoding
-    VCR.use_cassette('reverse_geocode/samseong-dong') do
+    VCR.use_cassette("reverse_geocode/samseong-dong") do
       query = Geocoder::Query.new([960713, 1946274], { addrcdtype: 'law', new_addr_type: 'new', include_jibun: 'yes' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -110,7 +110,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_converting_coordinate_utmk_to_wgs
-    VCR.use_cassette('convert_coords/utmk_to_wgs84') do
+    VCR.use_cassette("convert_coords/utmk_to_wgs84") do
       query = Geocoder::Query.new([960713, 1946274],{coord_in: 'utmk', coord_out: 'wgs84'})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -121,7 +121,7 @@ class OllehTest < GeocoderTestCase
 
   def test_converting_coordinate_wgs_to_utmk
     # seoul tower
-    VCR.use_cassette('convert_coords/wgs84_to_utmk') do
+    VCR.use_cassette("convert_coords/wgs84_to_utmk") do
       query = Geocoder::Query.new([37.5511694, 126.9882266],{coord_in: 'wgs84', coord_out: 'utmk'})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -131,7 +131,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_route_searching
-    VCR.use_cassette('route/basic') do
+    VCR.use_cassette("route/basic") do
       query = Geocoder::Query.new(
         '', {
         start_x: 960713,
@@ -160,7 +160,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_multi_waypoints_with_different_order_1
-    VCR.use_cassette('route/waypoints_with_different_order_1') do
+    VCR.use_cassette("route/waypoints_with_different_order_1") do
       query1 = Geocoder::Query.new(
           "", {
           start_x: 957760.25,
@@ -179,7 +179,7 @@ class OllehTest < GeocoderTestCase
       assert_equal '28.21', result.total_time
     end
 
-    VCR.use_cassette('route/waypoints_with_different_order_2') do
+    VCR.use_cassette("route/waypoints_with_different_order_2") do
       query2 = Geocoder::Query.new(
           "", {
           start_x: 957760.25,
@@ -200,7 +200,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_route_searching_with_waypoints
-    VCR.use_cassette('route/waypoints') do
+    VCR.use_cassette("route/waypoints") do
       query = Geocoder::Query.new(
         "", {
         start_x: 960713,
@@ -225,7 +225,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_km2_local_search
-    VCR.use_cassette('address/km2_local_search') do
+    VCR.use_cassette("address/km2_local_search") do
       query = Geocoder::Query.new('분당구+689', { places: 5, sr: 'RANK' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
@@ -237,7 +237,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_addr_step_search
-    VCR.use_cassette('address/address_step_search') do
+    VCR.use_cassette("address/address_step_search") do
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -250,7 +250,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_result_wgs_coordinates
-    VCR.use_cassette('address/address_step_search_plus_coordinates') do
+    VCR.use_cassette("address/address_step_search_plus_coordinates") do
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -260,7 +260,7 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_addr_nearest_position_search
-    VCR.use_cassette('address/nearest_position') do
+    VCR.use_cassette("address/nearest_position") do
       query = Geocoder::Query.new(
         '', {
         px: 966759,
