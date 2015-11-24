@@ -164,6 +164,38 @@ module Geocoder::Result
       "#{@data['SIDO']} #{@data['L_SIGUN_GU']} #{@data['L_DONG']} #{@data['GIBUN']}"
     end
 
+    ##
+    # addr used when we call km2_LocalSearch
+    # using old address system
+    def addr
+      @data["ADDR"].gsub("+", " ")
+    end
+
+    ##
+    # addr used when we call km2_LocalSearch
+    # using new address system
+    def new_addr
+      @data["NEW_ADDR"].gsub("+", " ")
+    end
+
+    ##
+    # NAME used when we call km2_LocalSearch
+    def name
+      @data["NAME"]
+    end
+
+    ##
+    # UTMK X coordinate used when we call km2_LocalSearch
+    def x
+      @data["X"]
+    end
+
+    ##
+    # UTMK Y coordinate used when we call km2_LocalSearch
+    def y
+      @data["Y"]
+    end
+
     response_attributes.each do |a|
       define_method a do
         @data[a]

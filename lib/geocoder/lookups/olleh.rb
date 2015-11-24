@@ -113,6 +113,8 @@ module Geocoder::Lookup
         'convert_coord'
       when options.include?(:l_code)
         'addr_step_search'
+      when options.include?(:places)
+        'addr_local_search'
       when options.include?(:radius)
         'addr_nearest_position_search'
       else
@@ -128,6 +130,7 @@ module Geocoder::Lookup
     def results(query)
       data = fetch_data(query)
       return [] unless data
+      return [] if data["error"]
       doc = JSON.parse(URI.decode(data["payload"]))
       if doc['ERRCD'] != nil && doc['ERRCD'] != 0
         Geocoder.log(:warn, "Olleh API error: #{doc['ERRCD']} (#{doc['ERRMS'] if doc['ERRMS']}).")
@@ -135,20 +138,23 @@ module Geocoder::Lookup
       end
 
       case Olleh.check_query_type(query)
-      when "geocoding"
+      when 'addr_local_search'
+        return [] if doc["RESULTDATA"]["place"]["TotalCount"].to_i == 0
+        return doc["RESULTDATA"]["place"]["Data"]
+      when 'geocoding'
         return [] if doc['RESDATA']['COUNT'] == 0
-        return doc['RESDATA']["ADDRS"]
-      when "reverse_geocoding"
+        return doc['RESDATA']['ADDRS']
+      when 'reverse_geocoding'
         return [] if doc['RESDATA']['COUNT'] == 0
-        return doc['RESDATA']["ADDRS"] || []
-      when "route_search"
-        return [] if doc["RESDATA"]["SROUTE"]["isRoute"] == "false"
-        return doc["RESDATA"] || []
-      when "convert_coord"
+        return doc['RESDATA']['ADDRS'] || []
+      when 'route_search'
+        return [] if doc['RESDATA']['SROUTE']['isRoute'] == 'false'
         return doc['RESDATA'] || []
-      when "addr_step_search"
+      when 'convert_coord'
+        return doc['RESDATA'] || []
+      when 'addr_step_search'
         return doc['RESULTDATA'] || []
-      when "addr_nearest_position_search"
+      when 'addr_nearest_position_search'
         return doc['RESULTDATA'] || []
       else
         []
@@ -157,6 +163,8 @@ module Geocoder::Lookup
 
     def base_url(query)
       case Olleh.check_query_type(query)
+      when "addr_local_search"
+        "https://openapi.kt.com/maps/search/km2_LocalSearch?params="
       when "route_search"
         "https://openapi.kt.com/maps/etc/RouteSearch?params="
       when "reverse_geocoding"
@@ -174,6 +182,18 @@ module Geocoder::Lookup
 
     def query_url_params(query)
       case Olleh.check_query_type(query)
+      when "addr_local_search"
+        # option 2 is for sorting results. we are using default.
+        # places is for number of results
+        # sr is for
+        # isaddr for searching address only. excluding building name, etc.
+        hash = {
+          query: URI.encode(query.text),
+          option: "1",
+          places: query.options[:places],
+          sr: query.options[:sr],
+          isaddr: "1"
+        }
       when "route_search"
         hash = {
           SX: query.options[:start_x],
