@@ -113,7 +113,7 @@ module Geocoder::Lookup
         'convert_coord'
       when options.include?(:l_code)
         'addr_step_search'
-      when options.include?(:sr) && options.include?(:places)
+      when options.include?(:places)
         'addr_local_search'
       when options.include?(:radius)
         'addr_nearest_position_search'
@@ -130,6 +130,7 @@ module Geocoder::Lookup
     def results(query)
       data = fetch_data(query)
       return [] unless data
+      return [] if data["error"]
       doc = JSON.parse(URI.decode(data["payload"]))
       if doc['ERRCD'] != nil && doc['ERRCD'] != 0
         Geocoder.log(:warn, "Olleh API error: #{doc['ERRCD']} (#{doc['ERRMS'] if doc['ERRMS']}).")
@@ -183,18 +184,15 @@ module Geocoder::Lookup
       case Olleh.check_query_type(query)
       when 'addr_local_search'
         # option 2 is for sorting results. we are using default.
-        # S=AN is for returning new addresses + old addresses.
-        #   A  is for returning old addresses only
-        #   N  is for returning new addresses only
         # places is for number of results
         # sr is for
         # isaddr for searching address only. excluding building name, etc.
         hash = {
-          option: 1,
-          S: 'AN',
-          places: query.options[:places] || 5,
-          sr: query.options[:sr] || 'RANK',
-          isaddr: 1
+          query: URI.encode(query.text),
+          option: "1",
+          places: query.options[:places],
+          sr: query.options[:sr],
+          isaddr: "1"
         }
       when 'route_search'
         hash = {

@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/AddrNearestPosSearch?params=%7B%22px%22:966759,%22py%22:1947935,%22radius%22:100,%22timestamp%22:%2220151124153333507%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Nov 2015 07:33:34 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '1002'
+      Set-Cookie:
+      - _WL_AUTHCOOKIE_JSESSIONID=T]4VTL[NieQywKUdwpLl; path=/; secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Usedhandler:
+      - IPBasedSLAHandlerREST
+      Cneonction:
+      - close
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"7e6297a6-bed8-330e-a187-8b31336fea50","payload":"%7B%22RESULTDATA%22%3A%5B%7B%22BON_BUN%22%3A%22540%22%2C%22P_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22L_SIGUN_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22SIDO%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%22%2C%22GIBUN%22%3A%22540%22%2C%22P_DONG%22%3A%22%EC%84%B1%EB%82%B4%EB%8F%99%22%2C%22H_SIGUN_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22L_DONG%22%3A%22%EC%84%B1%EB%82%B4%EB%8F%99%22%2C%22H_DONG%22%3A%22%EC%84%B1%EB%82%B41%EB%8F%99%22%2C%22P_LI%22%3Anull%2C%22L_CODE%22%3A%221174010800%22%2C%22L_LI%22%3Anull%2C%22P_SIGUN%22%3Anull%2C%22Y%22%3A%221947931.71%22%2C%22COORDTYPE%22%3A%22UTMK%22%2C%22H_CODE%22%3A%2211740640%22%2C%22X%22%3A%22966750.79%22%2C%22P_CODE%22%3A%22009000002016000%22%2C%22BU_BUN%22%3A%220%22%7D%5D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%22908%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+    http_version: 
+  recorded_at: Tue, 24 Nov 2015 07:33:34 GMT
+recorded_with: VCR 3.0.0

@@ -224,18 +224,20 @@ class OllehTest < GeocoderTestCase
     end
   end
 
-  def test_olleh_addr_step_search
-    # VCR.use_cassette('km2_local_search') do
-      query = Geocoder::Query.new('분당구+689', {places: 5})
+  def test_olleh_km2_local_search
+    VCR.use_cassette('address/km2_local_search') do
+      query = Geocoder::Query.new('분당구+689', { places: 5, sr: 'RANK' })
       lookup = Geocoder::Lookup::Olleh.new
-binding.pry
       result = lookup.search(query)
-
-    # end
+      assert_equal result.first.addr, "경기도 성남시 분당구 삼평동 689"
+      assert_equal result.first.x, "965630"
+      assert_equal result.first.y, "1933900"
+      assert_equal result.first.new_addr, "경기도 성남시 분당구 판교로 335"
+    end
   end
 
   def test_olleh_addr_step_search
-    VCR.use_cassette('address_step_search') do
+    VCR.use_cassette('address/address_step_search') do
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -248,7 +250,7 @@ binding.pry
   end
 
   def test_olleh_result_wgs_coordinates
-    VCR.use_cassette('address_step_search_plus_coordinates') do
+    VCR.use_cassette('address/address_step_search_plus_coordinates') do
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
@@ -258,7 +260,7 @@ binding.pry
   end
 
   def test_olleh_addr_nearest_position_search
-    VCR.use_cassette('nearest_position') do
+    VCR.use_cassette('address/nearest_position') do
       query = Geocoder::Query.new(
         '', {
         px: 966759,
