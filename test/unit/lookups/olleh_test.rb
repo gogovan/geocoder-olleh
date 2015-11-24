@@ -225,14 +225,24 @@ class OllehTest < GeocoderTestCase
   end
 
   def test_olleh_km2_local_search
-    VCR.use_cassette("address/km2_local_search") do
-      query = Geocoder::Query.new('분당구+689', { places: 5, sr: 'RANK' })
+    VCR.use_cassette("address/km2_local_search_1") do
+      query = Geocoder::Query.new('분당구+689', { places: 5, sr: 'RANK', isaddr: 'search_address_only' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
       assert_equal result.first.addr, "경기도 성남시 분당구 삼평동 689"
       assert_equal result.first.x, "965630"
       assert_equal result.first.y, "1933900"
       assert_equal result.first.new_addr, "경기도 성남시 분당구 판교로 335"
+    end
+
+    VCR.use_cassette("address/km2_local_search_2") do
+      query = Geocoder::Query.new('체코공화국대사관', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query)
+      assert_equal result.first.x, "953235"
+      assert_equal result.first.y, "1952595"
+      assert_equal result.first.addr, "서울특별시 종로구 신문로2가 1-121"
+      assert_equal result.first.new_addr, "서울특별시 종로구 경희궁1길 17"
     end
   end
 

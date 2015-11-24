@@ -48,6 +48,7 @@ module Geocoder::Lookup
       'wgs84'   => 7,
       'bessel'  => 8
     }
+
     ROUTE_COORD_TYPES = {
       'geographic'=> 0,
       'tm_west'   => 1,
@@ -57,6 +58,11 @@ module Geocoder::Lookup
       'utm52'     => 5,
       'utm51'     => 6,
       'utmk'      => 7
+    }
+
+    NEW_ADDR_SEARCH_OPTIONS = {
+      'search_names_too' => 0,
+      'search_address_only' => 1
     }
 
     def use_ssl?
@@ -69,6 +75,10 @@ module Geocoder::Lookup
 
     def query_url(query)
       base_url(query) + url_query_string(query)
+    end
+
+    def self.new_addr_search_options
+      NEW_ADDR_SEARCH_OPTIONS
     end
 
     def self.priority
@@ -192,7 +202,7 @@ module Geocoder::Lookup
           option: "1",
           places: query.options[:places],
           sr: query.options[:sr],
-          isaddr: "1"
+          isaddr: Olleh.new_addr_search_options[query.options[:isaddr]] || "1"
         }
       when "route_search"
         hash = {
