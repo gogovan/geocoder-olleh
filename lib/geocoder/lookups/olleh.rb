@@ -149,8 +149,9 @@ module Geocoder::Lookup
 
       case Olleh.check_query_type(query)
       when 'addr_local_search'
-        return [] if doc["RESULTDATA"]["place"]["TotalCount"].to_i == 0
-        return doc["RESULTDATA"]["place"]["Data"]
+        result = local_search_result(doc["RESULTDATA"])
+        return [] if  result.size == 0
+        return result
       when 'geocoding'
         return [] if doc['RESDATA']['COUNT'] == 0
         return doc['RESDATA']['ADDRS']
@@ -169,6 +170,10 @@ module Geocoder::Lookup
       else
         []
       end
+    end
+
+    def local_search_result(result_data)
+      result_data["place"]["Data"] || result_data["New_addrs"]["Data"]
     end
 
     def base_url(query)

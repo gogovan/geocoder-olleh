@@ -168,7 +168,12 @@ module Geocoder::Result
     # addr used when we call km2_LocalSearch
     # using old address system
     def addr
-      @data["ADDR"].gsub("+", " ")
+      if @data["ADDR"]
+        @data["ADDR"].gsub("+", " ")
+      else
+        @data["M_ADDR1"].gsub("+", " ").gsub("  ", " ") + " " +
+          @data["M_ADDR2"].gsub("+", " ").gsub("  ", " ")
+      end
     end
 
     ##
@@ -176,7 +181,7 @@ module Geocoder::Result
     # using new address system
     def new_addr
       if @data["NEW_ADDR"]
-        @data["NEW_ADDR"].gsub("+", " ")
+        @data["NEW_ADDR"].gsub("+", " ").gsub("  ", " ")
       else
         @data["ADDR"]
       end
