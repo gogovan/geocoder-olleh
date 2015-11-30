@@ -252,6 +252,13 @@ class OllehTest < GeocoderTestCase
       assert_equal result.first.new_addr, "서울특별시 서초구 사임당로 174"
       assert_equal result.first.addr, "서울특별시 서초구 서초동 1337-1"
     end
+
+    VCR.use_cassette("address/km2_local_search_4") do
+      query = Geocoder::Query.new('삭두', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query)
+      assert_equal result, []
+    end
   end
 
   def test_olleh_addr_step_search

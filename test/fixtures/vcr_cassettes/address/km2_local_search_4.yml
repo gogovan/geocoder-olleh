@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EC%2582%25AD%25EB%2591%2590%22,%22option%22:%221%22,%22places%22:5,%22sr%22:%22RANK%22,%22isaddr%22:0,%22timestamp%22:%2220151130173108311%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 30 Nov 2015 09:31:09 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '937'
+      Set-Cookie:
+      - _WL_AUTHCOOKIE_JSESSIONID=5uzDZMmchEUDLkDdBCAX; path=/; secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Usedhandler:
+      - IPBasedSLAHandlerREST
+      Nncoection:
+      - close
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"239f489f-76d5-3df0-8d5b-8a298e6fa26c","payload":"%7B%22RESULTDATA%22%3A%7B%22QueryResult%22%3A%7B%22Querystr%22%3A%22%EC%82%AD%EB%91%90%22%2C%22r_query%22%3A%22%22%2C%22Kmwords%22%3A%22%EC%82%AD%EB%91%90+%22%2C%22isJulim%22%3A%220%22%2C%22PoiQuery%22%3Anull%7D%2C%22na_result%22%3A%7B%22r_query%22%3A%22%EC%82%AD%EB%91%90%22%2C%22road_name%22%3A%22%22%7D%2C%22New_addrs%22%3A%7B%22Data%22%3Anull%2C%22Count%22%3A0%2C%22TotalCount%22%3A0%7D%2C%22addr%22%3A%7B%22Data%22%3A%5B%5D%2C%22Count%22%3A0%2C%22TotalCount%22%3A0%7D%2C%22searchType%22%3A%7B%22orgType%22%3A%22H%22%2C%22use_option%22%3A%221%22%2C%22realType%22%3A%22H%22%2C%22option%22%3A%221%22%7D%2C%22place%22%3A%7B%22Count%22%3A%220%22%2C%22TotalCount%22%3A%220%22%7D%7D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%221101%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+    http_version: 
+  recorded_at: Mon, 30 Nov 2015 09:31:09 GMT
+recorded_with: VCR 3.0.0

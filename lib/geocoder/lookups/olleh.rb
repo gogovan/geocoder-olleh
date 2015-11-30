@@ -1,5 +1,7 @@
 require 'geocoder/lookups/base'
 require "geocoder/results/olleh"
+require 'typhoeus'
+require 'typhoeus/adapters/faraday'
 require 'base64'
 require 'uri'
 require 'json'
@@ -150,7 +152,7 @@ module Geocoder::Lookup
       case Olleh.check_query_type(query)
       when 'addr_local_search'
         result = local_search_result(doc["RESULTDATA"])
-        return [] if  result.size == 0
+        return [] if  result.nil? || result.size == 0
         return result
       when 'geocoding'
         return [] if doc['RESDATA']['COUNT'] == 0

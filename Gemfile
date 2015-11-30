@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in geocoder-olleh.gemspec
 gem 'geocoder'
+gem 'typhoeus'
+gem 'faraday'
+
 group :development, :test do
   gem 'test-unit' # needed for Ruby >=2.2.0
   gem 'guard'
