@@ -1,7 +1,5 @@
 require 'geocoder/lookups/base'
 require "geocoder/results/olleh"
-require 'typhoeus'
-require 'typhoeus/adapters/faraday'
 require 'base64'
 require 'uri'
 require 'json'
