@@ -170,9 +170,11 @@ module Geocoder::Result
     def addr
       if @data["ADDR"]
         @data["ADDR"].gsub("+", " ")
-      else
+      elsif data["M_ADDR1"]
         @data["M_ADDR1"].gsub("+", " ").gsub("  ", " ") + " " +
           @data["M_ADDR2"].gsub("+", " ").gsub("  ", " ")
+      else
+        @data["NEW_ADDR"].gsub("+", " ")
       end
     end
 
