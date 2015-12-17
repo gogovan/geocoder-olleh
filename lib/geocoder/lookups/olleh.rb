@@ -140,6 +140,7 @@ module Geocoder::Lookup
     def results(query)
       data = fetch_data(query)
       return [] unless data
+      return [] if data["payload"].empty?
       return [] if data["error"]
       doc = JSON.parse(URI.decode(data["payload"]))
       if doc['ERRCD'] != nil && doc['ERRCD'] != 0
@@ -173,7 +174,15 @@ module Geocoder::Lookup
     end
 
     def local_search_result(result_data)
-      result_data["place"]["Data"] || result_data["New_addrs"]["Data"]
+      if result_data["addr"] && !result_data["addr"]["Data"].empty?
+        result_data["addr"]["Data"]
+      elsif result_data["New_addrs"] && !result_data["New_addrs"]["Data"].empty?
+        result_data["New_addrs"]["Data"]
+      elsif result_data["place"] && !result_data["place"]["Data"].empty?
+        result_data["place"]["Data"]
+      else
+        nil
+      end
     end
 
     def base_url(query)
@@ -198,13 +207,24 @@ module Geocoder::Lookup
     def query_url_params(query)
       case Olleh.check_query_type(query)
       when "addr_local_search"
-        # option 2 is for sorting results. we are using default.
-        # places is for number of results
+        # option 2 is for sorting based on location of user.
+        # we are using default. "1"
+        #
+        # we can add UTMK X, Y coordinates for that.
+        # but i am not using it. it's optional.
+        # isarea = 1 should be used in this case.
+        # r is for setting radius. (300, 500, 1000, 2000, 40000)
+        #
+        # places is for number of results. 100 is the maximum.
+        #
         # sr is for
         # isaddr for searching address only. excluding building name, etc.
+        # s: "AN" means it will return old / new style addresses.
+        #
         hash = {
           query: URI.encode(query.text),
           option: "1",
+          s: "AN",
           places: query.options[:places],
           sr: query.options[:sr],
           isaddr: Olleh.new_addr_search_options[query.options[:isaddr]] || "1"

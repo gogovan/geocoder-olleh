@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EA%25B5%25AD%25ED%259A%258C%25EB%258C%2580%25EB%25A1%259C%22,%22option%22:%221%22,%22s%22:%22AN%22,%22places%22:100,%22sr%22:%22RANK%22,%22isaddr%22:1,%22timestamp%22:%2220151217145742014%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 17 Dec 2015 06:57:42 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '1936'
+      Set-Cookie:
+      - _WL_AUTHCOOKIE_JSESSIONID=cv5Yk1E7sbV2B7w4C1]9; path=/; secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Usedhandler:
+      - IPBasedSLAHandlerREST
+      Cneonction:
+      - close
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"a839a33b-da84-35f6-a7af-5de216680de7","payload":"%7B%22RESULTDATA%22%3A%7B%22QueryResult%22%3A%7B%22Querystr%22%3A%22%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C%22%2C%22r_query%22%3A%22%22%2C%22Kmwords%22%3A%22%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C+%EA%B5%AD%ED%9A%8C+%EB%8C%80%EB%A1%9C+%22%2C%22isJulim%22%3A%220%22%2C%22PoiQuery%22%3Anull%7D%2C%22na_result%22%3A%7B%22r_query%22%3A%22%22%2C%22road_name%22%3A%22%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C%22%7D%2C%22New_addrs%22%3A%7B%22Data%22%3A%5B%7B%22INDEX%22%3A1%2C%22NEW_ADDR%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%96%91%EC%B2%9C%EA%B5%AC+%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C%22%2C%22DONG_CODE%22%3A%2211470%22%2C%22h_code%22%3A%220%22%2C%22RD_CD%22%3A%22114702005008%22%2C%22Y%22%3A%221947713%22%2C%22X%22%3A%22941242%22%2C%22NOW_PAGE%22%3A0%7D%2C%7B%22INDEX%22%3A2%2C%22NEW_ADDR%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EC%84%9C%EA%B5%AC+%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C%22%2C%22DONG_CODE%22%3A%2211500%22%2C%22h_code%22%3A%220%22%2C%22RD_CD%22%3A%22115002005008%22%2C%22Y%22%3A%221947802%22%2C%22X%22%3A%22942215%22%2C%22NOW_PAGE%22%3A0%7D%2C%7B%22INDEX%22%3A3%2C%22NEW_ADDR%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EA%B5%AD%ED%9A%8C%EB%8C%80%EB%A1%9C%22%2C%22DONG_CODE%22%3A%2211560%22%2C%22h_code%22%3A%220%22%2C%22RD_CD%22%3A%22115602005008%22%2C%22Y%22%3A%221947984%22%2C%22X%22%3A%22946443%22%2C%22NOW_PAGE%22%3A0%7D%5D%2C%22Count%22%3A3%2C%22TotalCount%22%3A3%7D%2C%22addr%22%3A%7B%22Data%22%3A%5B%5D%2C%22Count%22%3A0%2C%22TotalCount%22%3A0%7D%2C%22searchType%22%3A%7B%22orgType%22%3A%22B%22%2C%22use_option%22%3A%222%22%2C%22realType%22%3A%22H%22%2C%22option%22%3A%221%22%7D%7D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%221101%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+    http_version: 
+  recorded_at: Thu, 17 Dec 2015 06:57:43 GMT
+recorded_with: VCR 3.0.0

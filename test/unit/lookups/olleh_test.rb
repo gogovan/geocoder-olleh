@@ -34,7 +34,7 @@ class OllehTest < GeocoderTestCase
     end
   end
 
-  def test_search_by_full_address
+  def test_search_coord_by_full_address
     VCR.use_cassette("geocode/samseong-dong-full-address") do
       result = Geocoder.search("서울특별시 강남구 삼성동 168-1", provider: :olleh)
       assert_equal [961376, 1945766], result.first.coordinates
@@ -56,6 +56,22 @@ class OllehTest < GeocoderTestCase
       result = lookup.search(query).first
       assert_equal "서울특별시 강남구 삼성동 168-1", result.address
       assert_equal [961376, 1945766], result.coordinates
+    end
+  end
+
+  def test_gecoding_for_seoul_and_busan
+    VCR.use_cassette("geocode/check-seoul-busan-coords") do
+      lookup = Geocoder::Lookup::Olleh.new
+      seoul = "서울특별시 서초구 서초동 1337"
+      busan = "부산광역시 동구 초량동 1187-1"
+      query1 = Geocoder::Query.new(seoul, {addrcdtype: 'law'})
+      query2 = Geocoder::Query.new(busan, {addrcdtype: 'law'})
+      r1 = lookup.search(query1).first
+      r2 = lookup.search(query2).first
+      assert_equal r1.address, "서울특별시 서초구 서초동 1337-6"
+      assert_equal r1.coordinates, [958369, 1943657]
+      assert_equal r2.address, "부산광역시 동구 초량동 1187-1"
+      assert_equal r2.coordinates, [1140600, 1681210]
     end
   end
 
@@ -141,21 +157,42 @@ class OllehTest < GeocoderTestCase
         priority: 'shortest',
         coord_type: 'utmk'
       })
-
-      # query = Geocoder::Query.new(
-      #   '', {
-      #   start_x: 126.9882266,
-      #   start_y: 37.5511694,
-      #   end_x: 127.05543973133743,
-      #   end_y: 37.51491635059331,
-      #   priority: 'high_way',
-      #   coord_type: 'wgs84'
-      # })
-
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
       assert_equal '15712', result.total_dist
       assert_equal '43.05', result.total_time
+    end
+
+    VCR.use_cassette("route/compare_high_way_to_freeway_1") do
+      query = Geocoder::Query.new(
+        '', {
+        start_x: 958369,
+        start_y: 1943657,
+        end_x: 1140600,
+        end_y: 1681210,
+        priority: 'high_way',
+        coord_type: 'utmk'
+      })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query).first
+      assert_equal result.total_dist, '388240'
+      assert_equal result.total_time, '254.3'
+    end
+
+    VCR.use_cassette("route/compare_high_way_to_freeway_2") do
+      query = Geocoder::Query.new(
+        '', {
+        start_x: 958369,
+        start_y: 1943657,
+        end_x: 1140600,
+        end_y: 1681210,
+        priority: 'free_way',
+        coord_type: 'utmk'
+      })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query).first
+      assert_equal result.total_dist, '410536'
+      assert_equal result.total_time, '423.58'
     end
   end
 
@@ -226,38 +263,86 @@ class OllehTest < GeocoderTestCase
 
   def test_olleh_km2_local_search
     VCR.use_cassette("address/km2_local_search_1") do
-      query = Geocoder::Query.new('분당구+689', { places: 5, sr: 'RANK', isaddr: 'search_address_only' })
+      query = Geocoder::Query.new('서초동 1337', { places: 70, sr: 'RANK', isaddr: 'search_address_only' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result.first.old_addr, "경기도 성남시 분당구 삼평동 689"
-      assert_equal result.first.x, "965630"
-      assert_equal result.first.y, "1933900"
-      assert_equal result.first.new_addr, "경기도 성남시 분당구 판교로 335"
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초2동 1337"
+      assert_equal result[0].new_addr, "서울특별시 서초구  사임당로 174"
+
+      assert_equal result[1].old_addr, "서울특별시 서초구 서초동 1337"
+      assert_equal result[1].new_addr, "서울특별시 서초구  사임당로 174"
+
+      assert_equal result[2].old_addr, "서울특별시 서초구 서초2동 1337-1"
+      assert_equal result[2].new_addr, "서울특별시 서초구  사임당로 174"
+
+      assert_equal result[3].old_addr, "서울특별시 서초구 서초동 1337-1"
+      assert_equal result[3].new_addr, "서울특별시 서초구  사임당로 174"
+
+      assert_equal result[4].old_addr, "서울특별시 서초구 서초동 1337-2"
+      assert_equal result[4].new_addr, "서울특별시 서초구  효령로77길 34"
     end
 
     VCR.use_cassette("address/km2_local_search_2") do
-      query = Geocoder::Query.new('체코공화국대사관', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      query = Geocoder::Query.new('서초동 1337-1', { places: 70, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result.first.x, "953235"
-      assert_equal result.first.y, "1952595"
-      assert_equal result.first.old_addr, "서울특별시 종로구 신문로2가 1-121"
-      assert_equal result.first.new_addr, "서울특별시 종로구 경희궁1길 17"
+      assert_equal result.first.old_addr, "서울특별시 서초구 서초동 1337-1"
+      assert_equal result.first.new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result.last.old_addr, "서울특별시 서초구 서초2동 1337-1"
+      assert_equal result.last.new_addr, "서울특별시 서초구  사임당로 174"
     end
 
     VCR.use_cassette("address/km2_local_search_3") do
-      query = Geocoder::Query.new('사임당로 174', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      query = Geocoder::Query.new('서초동 1337-7', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result.first.new_addr, "서울특별시 서초구 사임당로 174"
-      assert_equal result.first.old_addr, "서울특별시 서초구 서초동 1337-1"
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-7"
+      assert_equal result[0].new_addr, ""
+      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-7"
+      assert_equal result[1].new_addr, ""
     end
 
     VCR.use_cassette("address/km2_local_search_4") do
-      query = Geocoder::Query.new('삭두', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      query = Geocoder::Query.new('서초동 1337-16', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result, []
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-16"
+      assert_equal result[0].new_addr, ""
+      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-16"
+      assert_equal result[1].new_addr, ""
+    end
+
+    VCR.use_cassette("address/km2_local_search_5") do
+      query = Geocoder::Query.new('서초동 1337-34', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query)
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-34"
+      assert_equal result[0].new_addr, "서울특별시 서초구  강남대로 331"
+      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-34"
+      assert_equal result[1].new_addr, "서울특별시 서초구  강남대로 331"
+    end
+
+    VCR.use_cassette("address/km2_local_search_6") do
+      query = Geocoder::Query.new('사임당로 174', { places: 100, sr: 'RANK', isaddr: 'search_address_only' })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query)
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-1"
+      assert_equal result[0].new_addr, "서울특별시 서초구 사임당로 174"
+    end
+
+    VCR.use_cassette("address/km2_local_search_7") do
+      query = Geocoder::Query.new('국회대로', { places: 100, sr: 'RANK', isaddr: 'search_address_only' })
+      lookup = Geocoder::Lookup::Olleh.new
+      result = lookup.search(query)
+
+      assert_equal result[0].old_addr, ""
+      assert_equal result[0].new_addr, "서울특별시 양천구 국회대로"
+
+      assert_equal result[1].old_addr, ""
+      assert_equal result[1].new_addr, "서울특별시 강서구 국회대로"
+
+      assert_equal result[2].old_addr, ""
+      assert_equal result[2].new_addr, "서울특별시 영등포구 국회대로"
     end
   end
 

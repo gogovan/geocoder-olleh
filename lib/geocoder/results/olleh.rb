@@ -131,7 +131,7 @@ module Geocoder::Result
     ##
     # 법정동 - 시군구
     def addr_step_sigungu
-      @data["SIGUNGU"].gsub("+"," ")
+      sanitize_addr(@data["SIGUNGU"])
     end
 
     def addr_step_dong
@@ -169,12 +169,13 @@ module Geocoder::Result
     # using old address system
     def old_addr
       if @data["ADDR"]
-        @data["ADDR"].gsub("+", " ")
-      elsif data["M_ADDR1"]
-        @data["M_ADDR1"].gsub("+", " ").gsub("  ", " ") + " " +
-          @data["M_ADDR2"].gsub("+", " ").gsub("  ", " ")
+        sanitize_addr(@data["ADDR"])
+      elsif @data["ADDRESS"]
+        sanitize_addr(@data["ADDRESS"])
+      elsif @data["M_ADDR1"]
+        sanitize_addr(@data["M_ADDR1"]) + " " + sanitize_addr(@data["M_ADDR2"])
       else
-        @data["NEW_ADDR"].gsub("+", " ")
+        ""
       end
     end
 
@@ -183,9 +184,11 @@ module Geocoder::Result
     # using new address system
     def new_addr
       if @data["NEW_ADDR"]
-        @data["NEW_ADDR"].gsub("+", " ").gsub("  ", " ")
+        sanitize_addr(@data["NEW_ADDR"])
+      elsif @data["M_NEWADDR1"] && @data["M_NEWADDR2"]
+        sanitize_addr(@data["M_NEWADDR1"]) + " " + sanitize_addr(@data["M_NEWADDR2"])
       else
-        @data["ADDR"]
+        ""
       end
     end
 
@@ -205,6 +208,11 @@ module Geocoder::Result
     # UTMK Y coordinate used when we call km2_LocalSearch
     def y
       @data["Y"]
+    end
+
+    def sanitize_addr(text)
+      return unless text
+      text.gsub("++", " ").gsub("+", " ")
     end
 
     response_attributes.each do |a|
