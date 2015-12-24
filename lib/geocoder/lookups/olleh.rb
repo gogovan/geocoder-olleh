@@ -140,7 +140,7 @@ module Geocoder::Lookup
     def results(query)
       data = fetch_data(query)
       return [] unless data
-      return [] if data["payload"].blank?
+      return [] if blank?(data["payload"])
       return [] if data["error"]
       doc = JSON.parse(URI.decode(data["payload"]))
       if doc['ERRCD'] != nil && doc['ERRCD'] != 0
@@ -174,15 +174,19 @@ module Geocoder::Lookup
     end
 
     def local_search_result(result_data)
-      if result_data["addr"] && !result_data["addr"]["Data"].blank?
+      if result_data["addr"] && !blank?(result_data["addr"]["Data"])
         result_data["addr"]["Data"]
-      elsif result_data["New_addrs"] && !result_data["New_addrs"]["Data"].blank?
+      elsif result_data["New_addrs"] && !blank?(result_data["New_addrs"]["Data"])
         result_data["New_addrs"]["Data"]
-      elsif result_data["place"] && !result_data["place"]["Data"].blank?
+      elsif result_data["place"] && !blank?(result_data["place"]["Data"])
         result_data["place"]["Data"]
       else
         nil
       end
+    end
+
+    def blank?(obj)
+      obj.nil? || obj.empty?
     end
 
     def base_url(query)
