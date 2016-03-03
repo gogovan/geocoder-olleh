@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/etc/RouteSearch?params=%7B%22SX%22:957760.25,%22SY%22:1944925.0,%22EX%22:946545.625,%22EY%22:1953371.125,%22RPTYPE%22:0,%22COORDTYPE%22:7,%22PRIORITY%22:1,%22VX1%22:956895.0625,%22VY1%22:1942818.5,%22timestamp%22:%2220150718023959982%22%7D
+    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/etc/RouteSearch?params=%7B%22SX%22:957760.25,%22SY%22:1944925.0,%22EX%22:946545.625,%22EY%22:1953371.125,%22RPTYPE%22:0,%22COORDTYPE%22:7,%22PRIORITY%22:1,%22VX1%22:956895.0625,%22VY1%22:1942818.5,%22timestamp%22:%2220150718023959982%22%7D
     body:
       encoding: US-ASCII
       string: ''

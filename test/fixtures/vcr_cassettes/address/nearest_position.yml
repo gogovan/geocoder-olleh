@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/AddrNearestPosSearch?params=%7B%22px%22:966759,%22py%22:1947935,%22radius%22:100,%22timestamp%22:%2220151124153333507%22%7D
+    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/AddrNearestPosSearch?params=%7B%22px%22:966759,%22py%22:1947935,%22radius%22:100,%22timestamp%22:%2220151124153333507%22%7D
     body:
       encoding: US-ASCII
       string: ''

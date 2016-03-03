@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/geocode/GetGeocodeByAddr?params=%7B%22addr%22:%22%25EC%2582%25BC%25EC%2584%25B1%25EB%258F%2599%22,%22addrcdtype%22:null,%22timestamp%22:%2220150706133928453%22%7D
+    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/geocode/GetGeocodeByAddr?params=%7B%22addr%22:%22%25EC%2582%25BC%25EC%2584%25B1%25EB%258F%2599%22,%22addrcdtype%22:null,%22timestamp%22:%2220150706133928453%22%7D
     body:
       encoding: US-ASCII
       string: ''

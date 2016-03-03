@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/etc/ConvertCoord?params=%7B%22x%22:960713,%22y%22:1946274,%22inCoordType%22:0,%22outCoordType%22:7,%22timestamp%22:%2220150706152631433%22%7D
+    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/etc/ConvertCoord?params=%7B%22x%22:960713,%22y%22:1946274,%22inCoordType%22:0,%22outCoordType%22:7,%22timestamp%22:%2220150706152631433%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -39,6 +39,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"1e91c631-cdd9-3c92-87cc-148d242b1a98","payload":"%7B%22RESDATA%22%3A%7B%22COORD%22%3A%7B%22COORDTYPE%22%3A%22LLW%22%2C%22Y%22%3A%2237.51491635059331%22%2C%22X%22%3A%22127.05543973133743%22%7D%7D%2C%22ID%22%3A%22601%22%2C%22ERRCD%22%3A0%2C%22NO%22%3A%221e91c631-cdd9-3c92-87cc-148d242b1a98%22%2C%22ERRMS%22%3A%22SUCCESS%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 06 Jul 2015 07:26:32 GMT
 recorded_with: VCR 2.9.3

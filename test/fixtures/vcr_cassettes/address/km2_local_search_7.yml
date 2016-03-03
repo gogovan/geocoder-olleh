@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EA%25B5%25AD%25ED%259A%258C%25EB%258C%2580%25EB%25A1%259C%22,%22option%22:%221%22,%22s%22:%22AN%22,%22places%22:100,%22sr%22:%22RANK%22,%22isaddr%22:1,%22timestamp%22:%2220151217145742014%22%7D
+    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EA%25B5%25AD%25ED%259A%258C%25EB%258C%2580%25EB%25A1%259C%22,%22option%22:%221%22,%22s%22:%22AN%22,%22places%22:100,%22sr%22:%22RANK%22,%22isaddr%22:1,%22timestamp%22:%2220151217145742014%22%7D
     body:
       encoding: US-ASCII
       string: ''

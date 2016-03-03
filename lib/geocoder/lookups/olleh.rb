@@ -12,7 +12,6 @@ module Geocoder::Lookup
   # optimal  : based on traffic
   class Olleh < Base
 
-
     PRIORITY = {
       'shortest' => 0, # 최단거리 우선
       'high_way' => 1, # 고속도로 우선
@@ -65,8 +64,8 @@ module Geocoder::Lookup
       'search_address_only' => 1
     }
 
-    def use_ssl?
-      true
+    def supported_protocols
+      [:http, :https]
     end
 
     def name
@@ -190,22 +189,25 @@ module Geocoder::Lookup
     end
 
     def base_url(query)
-      case Olleh.check_query_type(query)
-      when "addr_local_search"
-        "https://openapi.kt.com/maps/search/km2_LocalSearch?params="
-      when "route_search"
-        "https://openapi.kt.com/maps/etc/RouteSearch?params="
-      when "reverse_geocoding"
-        "https://openapi.kt.com/maps/geocode/GetAddrByGeocode?params="
-      when "convert_coord"
-        "https://openapi.kt.com/maps/etc/ConvertCoord?params="
-      when "addr_step_search"
-        "https://openapi.kt.com/maps/search/AddrStepSearch?params="
-      when "addr_nearest_position_search"
-        "https://openapi.kt.com/maps/search/AddrNearestPosSearch?params="
-      else #geocoding
-        "https://openapi.kt.com/maps/geocode/GetGeocodeByAddr?params="
-      end
+      host = "#{protocol}://openapi.kt.com"
+      path =
+        case Olleh.check_query_type(query)
+        when "addr_local_search"
+          "/maps/search/km2_LocalSearch?params="
+        when "route_search"
+          "/maps/etc/RouteSearch?params="
+        when "reverse_geocoding"
+          "/maps/geocode/GetAddrByGeocode?params="
+        when "convert_coord"
+          "/maps/etc/ConvertCoord?params="
+        when "addr_step_search"
+          "/maps/search/AddrStepSearch?params="
+        when "addr_nearest_position_search"
+          "/maps/search/AddrNearestPosSearch?params="
+        else #geocoding
+          "/maps/geocode/GetGeocodeByAddr?params="
+        end
+      host + path
     end
 
     def query_url_params(query)

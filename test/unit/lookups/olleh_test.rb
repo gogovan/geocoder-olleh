@@ -12,6 +12,26 @@ class OllehTest < GeocoderTestCase
     })
   end
 
+  def test_use_https
+    lookup = Geocoder::Lookup::Olleh.new
+
+    # defaults to not ssl
+    non_ssl_url = lookup.query_url(Geocoder::Query.new('서울특별시 강남구 삼성동 168-1'))
+    assert non_ssl_url.start_with?("http://"), "should not be ssl"
+
+    # change the config
+    Geocoder.configure(lookup: :olleh, olleh: {
+      basic_auth: {
+        user: 'OllehMapAPI0100',
+        password: 'bncT89dfRT'
+      },
+      use_https: true
+    })
+
+    ssl_url = lookup.query_url(Geocoder::Query.new('서울특별시 강남구 삼성동 168-1'))
+    assert ssl_url.start_with?("https://"), "should be ssl"
+  end
+
   def test_query_for_geocode
     lookup = Geocoder::Lookup::Olleh.new
     url = lookup.query_url(Geocoder::Query.new('서울특별시 강남구 삼성동 168-1'))
