@@ -7,8 +7,8 @@ require 'geocoder/olleh/version'
 Gem::Specification.new do |spec|
   spec.name          = "geocoder-olleh"
   spec.version       = Geocoder::Olleh::VERSION
-  spec.authors       = ["Jaigouk Kim"]
-  spec.email         = ["ping@jaigouk.kim"]
+  spec.authors       = ["Jaigouk Kim", "Matthew Rudy Jacobs", "Peter Wong"]
+  spec.email         = ["ping@jaigouk.kim", "matthewrudyjacobs@gmail.com", "luiges90@gmail.com"]
 
   spec.summary       = %q{geocoding with Olleh map api}
   spec.description   = %q{Provides object geocoding}
