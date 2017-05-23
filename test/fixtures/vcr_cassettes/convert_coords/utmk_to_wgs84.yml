@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/etc/ConvertCoord?params=%7B%22x%22:960713,%22y%22:1946274,%22inCoordType%22:0,%22outCoordType%22:7,%22timestamp%22:%2220150706152631433%22%7D
+    uri: http://api.ollehmap.com:10082/giop/rest/etc/ConvertCoord.json?inCoordType=0&key=API_KEY&outCoordType=7&x=960713&y=1946274
     body:
       encoding: US-ASCII
       string: ''
@@ -18,27 +18,32 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/json;charset=UTF-8
       Date:
-      - Mon, 06 Jul 2015 07:25:30 GMT
+      - Tue, 23 May 2017 02:42:48 GMT
       Server:
-      - Apache
-      Content-Length:
-      - '452'
-      Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=Crev6VBZegAptJp0UC5T; path=/; secure; HttpOnly
+      - Apache/2.2.19 (Unix) mod_jk/1.2.35 mod_ssl/2.2.19 OpenSSL/0.9.8e-fips-rhel5
+        DAV/2
+      Content-Language:
+      - en-US
+      Connection:
+      - close
+      Access-Control-Allow-Headers:
+      - x-requested-with
       Access-Control-Allow-Origin:
       - "*"
-      X-Powered-By:
-      - Servlet/2.5 JSP/2.1
-      Usedhandler:
-      - IPBasedSLAHandlerREST
-      Nncoection:
-      - close
-      Content-Type:
-      - application/json
+      Access-Control-Max-Age:
+      - '360'
+      Access-Control-Allow-Methods:
+      - GET,POST
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Length:
+      - '156'
     body:
       encoding: UTF-8
-      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"1e91c631-cdd9-3c92-87cc-148d242b1a98","payload":"%7B%22RESDATA%22%3A%7B%22COORD%22%3A%7B%22COORDTYPE%22%3A%22LLW%22%2C%22Y%22%3A%2237.51491635059331%22%2C%22X%22%3A%22127.05543973133743%22%7D%7D%2C%22ID%22%3A%22601%22%2C%22ERRCD%22%3A0%2C%22NO%22%3A%221e91c631-cdd9-3c92-87cc-148d242b1a98%22%2C%22ERRMS%22%3A%22SUCCESS%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
-    http_version:
-  recorded_at: Mon, 06 Jul 2015 07:26:32 GMT
-recorded_with: VCR 2.9.3
+      string: '{"RESDATA":{"COORD":{"COORDTYPE":"LLW","Y":"37.51491635059331","X":"127.05543973133743"}},"ID":"601","ERRCD":0,"NO":"2jIQ-20170523114248","ERRMS":"SUCCESS"}'
+    http_version: 
+  recorded_at: Tue, 23 May 2017 02:20:26 GMT
+recorded_with: VCR 3.0.3

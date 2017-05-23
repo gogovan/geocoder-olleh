@@ -6,7 +6,7 @@ that adds support for Olleh.
 
 #### Olleh (`:olleh`)
 
-* **API key**: Basic auth (set `Geocoder.configure(:basic_auth => {:user => app_id, :password => app_key})`)
+* **API key**: API Key
 * **Quota**: Dependant on service plan
 * **Region**: South Korea
 * **SSL support**: no

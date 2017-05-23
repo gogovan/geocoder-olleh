@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EC%2584%259C%25EC%25B4%2588%25EB%258F%2599%25201337-16%22,%22option%22:%221%22,%22s%22:%22AN%22,%22places%22:5,%22sr%22:%22RANK%22,%22isaddr%22:0,%22timestamp%22:%2220151217143847487%22%7D
+    uri: http://api.ollehmap.com:10082/ocsp/v2/search/km2_LocalSearch.json?isaddr=0&key=API_KEY&option=1&places=5&query=%EC%84%9C%EC%B4%88%EB%8F%99%201337-16&s=AN&sr=RANK
     body:
       encoding: US-ASCII
       string: ''
@@ -18,27 +18,58 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/json;charset=utf-8
       Date:
-      - Thu, 17 Dec 2015 06:38:47 GMT
+      - Tue, 23 May 2017 02:26:52 GMT
       Server:
-      - Apache
-      Content-Length:
-      - '2505'
-      Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=w]q6rMlMAgf73SegjUyW; path=/; secure; HttpOnly
+      - Apache/2.2.21 (Unix) mod_jk/1.2.30
+      Content-Language:
+      - ko-KR
+      Connection:
+      - close
+      Access-Control-Allow-Headers:
+      - x-requested-with
       Access-Control-Allow-Origin:
       - "*"
-      X-Powered-By:
-      - Servlet/2.5 JSP/2.1
-      Usedhandler:
-      - IPBasedSLAHandlerREST
-      Cneonction:
-      - close
-      Content-Type:
-      - application/json
+      Access-Control-Max-Age:
+      - '360'
+      Access-Control-Allow-Methods:
+      - GET,POST
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Length:
+      - '1194'
     body:
-      encoding: UTF-8
-      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"3ef0d1bc-915d-30f7-894d-901de7c146a8","payload":"%7B%22RESULTDATA%22%3A%7B%22QueryResult%22%3A%7B%22Querystr%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99+1337-16%22%2C%22r_query%22%3A%221337-16%22%2C%22Kmwords%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99+%EC%84%9C%EC%B4%88+%EB%8F%99+1337+16+%22%2C%22isJulim%22%3A%220%22%2C%22PoiQuery%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99%22%7D%2C%22na_result%22%3A%7B%22r_query%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%991337-16%22%2C%22road_name%22%3A%22%22%7D%2C%22New_addrs%22%3A%7B%22Data%22%3Anull%2C%22Count%22%3A0%2C%22TotalCount%22%3A0%7D%2C%22addr%22%3A%7B%22Data%22%3A%5B%7B%22INDEX%22%3A%221%22%2C%22M_NEWADDR1%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C++%EC%84%9C%EC%B4%88%EA%B5%AC+%22%2C%22ADDRESS%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C++%EC%84%9C%EC%B4%88%EA%B5%AC+%EC%84%9C%EC%B4%88%EB%8F%99++1337-16%22%2C%22M_NEWADDR2%22%3Anull%2C%22L_SIGUN_GU%22%3A%22%EC%84%9C%EC%B4%88%EA%B5%AC%22%2C%22M_CNT%22%3Anull%2C%22ADDRESS_CODE%22%3A%22009000015018000%22%2C%22SIDO%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%22%2C%22GIBUN%22%3A%221337-16%22%2C%22DONG_CODE%22%3A%221165010800%22%2C%22L_DONG%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99%22%2C%22H_DONG%22%3A%22%EC%84%9C%EC%B4%882%EB%8F%99%22%2C%22L_LI%22%3Anull%2C%22Y%22%3A%221943740.08%22%2C%22H_CODE%22%3A%221165052000%22%2C%22X%22%3A%22958396.06%22%7D%2C%7B%22INDEX%22%3A%222%22%2C%22M_NEWADDR1%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C++%EC%84%9C%EC%B4%88%EA%B5%AC+%22%2C%22ADDRESS%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C++%EC%84%9C%EC%B4%88%EA%B5%AC+%EC%84%9C%EC%B4%882%EB%8F%99++1337-16%22%2C%22M_NEWADDR2%22%3Anull%2C%22L_SIGUN_GU%22%3A%22%EC%84%9C%EC%B4%88%EA%B5%AC%22%2C%22M_CNT%22%3Anull%2C%22ADDRESS_CODE%22%3A%22009000015018000%22%2C%22SIDO%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%22%2C%22GIBUN%22%3A%221337-16%22%2C%22DONG_CODE%22%3A%221165010800%22%2C%22L_DONG%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99%22%2C%22H_DONG%22%3A%22%EC%84%9C%EC%B4%882%EB%8F%99%22%2C%22L_LI%22%3Anull%2C%22Y%22%3A%221943740.08%22%2C%22H_CODE%22%3A%221165052000%22%2C%22X%22%3A%22958396.06%22%7D%5D%2C%22Count%22%3A2%2C%22TotalCount%22%3A2%7D%2C%22searchType%22%3A%7B%22orgType%22%3A%22A%22%2C%22use_option%22%3A%221%22%2C%22realType%22%3A%22A%22%2C%22option%22%3A%221%22%7D%7D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%221101%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJSRVNVTFREQVRBIjp7IlF1ZXJ5UmVzdWx0Ijp7IlF1ZXJ5c3RyIjoi7ISc
+        7LSI64+ZIDEzMzctMTYiLCJyX3F1ZXJ5IjoiMTMzNy0xNiIsIkttd29yZHMi
+        OiLshJzstIjrj5kg7ISc7LSIIOuPmSAxMzM3IDE2ICIsImlzSnVsaW0iOiIw
+        IiwiUG9pUXVlcnkiOiLshJzstIjrj5kifSwibmFfcmVzdWx0Ijp7InJfcXVl
+        cnkiOiLshJzstIjrj5kxMzM3LTE2Iiwicm9hZF9uYW1lIjoiIn0sIk5ld19h
+        ZGRycyI6eyJEYXRhIjpudWxsLCJDb3VudCI6MCwiVG90YWxDb3VudCI6MH0s
+        ImFkZHIiOnsiRGF0YSI6W3siSU5ERVgiOiIxIiwiTV9ORVdBRERSMSI6IuyE
+        nOyauO2KueuzhOyLnCAg7ISc7LSI6rWsICIsIkFERFJFU1MiOiLshJzsmrjt
+        irnrs4Tsi5wgIOyEnOy0iOq1rCDshJzstIjrj5kgIDEzMzctMTYiLCJNX05F
+        V0FERFIyIjpudWxsLCJMX1NJR1VOX0dVIjoi7ISc7LSI6rWsIiwiTV9DTlQi
+        Om51bGwsIkFERFJFU1NfQ09ERSI6IjAwOTAwMDAxNTAxODAwMCIsIlNJRE8i
+        OiLshJzsmrjtirnrs4Tsi5wiLCJHSUJVTiI6IjEzMzctMTYiLCJET05HX0NP
+        REUiOiIxMTY1MDEwODAwIiwiTF9ET05HIjoi7ISc7LSI64+ZIiwiSF9ET05H
+        Ijoi7ISc7LSIMuuPmSIsIkxfTEkiOm51bGwsIlkiOiIxOTQzNzQwLjA4Iiwi
+        SF9DT0RFIjoiMTE2NTA1MjAwMCIsIlgiOiI5NTgzOTYuMDYifSx7IklOREVY
+        IjoiMiIsIk1fTkVXQUREUjEiOiLshJzsmrjtirnrs4Tsi5wgIOyEnOy0iOq1
+        rCAiLCJBRERSRVNTIjoi7ISc7Jq47Yq567OE7IucICDshJzstIjqtawg7ISc
+        7LSIMuuPmSAgMTMzNy0xNiIsIk1fTkVXQUREUjIiOm51bGwsIkxfU0lHVU5f
+        R1UiOiLshJzstIjqtawiLCJNX0NOVCI6bnVsbCwiQUREUkVTU19DT0RFIjoi
+        MDA5MDAwMDE1MDE4MDAwIiwiU0lETyI6IuyEnOyauO2KueuzhOyLnCIsIkdJ
+        QlVOIjoiMTMzNy0xNiIsIkRPTkdfQ09ERSI6IjExNjUwMTA4MDAiLCJMX0RP
+        TkciOiLshJzstIjrj5kiLCJIX0RPTkciOiLshJzstIgy64+ZIiwiTF9MSSI6
+        bnVsbCwiWSI6IjE5NDM3NDAuMDgiLCJIX0NPREUiOiIxMTY1MDUyMDAwIiwi
+        WCI6Ijk1ODM5Ni4wNiJ9XSwiQ291bnQiOjIsIlRvdGFsQ291bnQiOjJ9LCJz
+        ZWFyY2hUeXBlIjp7Im9yZ1R5cGUiOiJBIiwidXNlX29wdGlvbiI6IjEiLCJy
+        ZWFsVHlwZSI6IkEiLCJvcHRpb24iOiIxIn19LCJFUlJNU0ciOiIiLCJFUlJD
+        T0RFIjoiMCIsIkFQSUlEIjoiMTEwMSJ9
     http_version: 
-  recorded_at: Thu, 17 Dec 2015 06:38:48 GMT
-recorded_with: VCR 3.0.0
+  recorded_at: Tue, 23 May 2017 02:26:52 GMT
+recorded_with: VCR 3.0.3

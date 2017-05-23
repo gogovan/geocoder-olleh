@@ -139,9 +139,7 @@ module Geocoder::Lookup
     def results(query)
       data = fetch_data(query)
       return [] unless data
-      return [] if blank?(data["payload"])
-      return [] if data["error"]
-      doc = JSON.parse(URI.decode(data["payload"]))
+      doc = data
       if doc['ERRCD'] != nil && doc['ERRCD'] != 0
         Geocoder.log(:warn, "Olleh API error: #{doc['ERRCD']} (#{doc['ERRMS'] if doc['ERRMS']}).")
         return []
@@ -189,23 +187,23 @@ module Geocoder::Lookup
     end
 
     def base_url(query)
-      host = "#{protocol}://openapi.kt.com"
+      host = "#{protocol}://api.ollehmap.com:10082"
       path =
         case Olleh.check_query_type(query)
         when "addr_local_search"
-          "/maps/search/km2_LocalSearch?params="
+          "/ocsp/v2/search/km2_LocalSearch.json?"
         when "route_search"
-          "/maps/etc/RouteSearch?params="
+          "/giop/rest/etc/RouteSearch.json?"
         when "reverse_geocoding"
-          "/maps/geocode/GetAddrByGeocode?params="
+          "/giop/rest/geocode/Rgeocode.json?"
         when "convert_coord"
-          "/maps/etc/ConvertCoord?params="
+          "/giop/rest/etc/ConvertCoord.json?"
         when "addr_step_search"
-          "/maps/search/AddrStepSearch?params="
+          "/ocsp/v1/search/AddrStepSearch.json?"
         when "addr_nearest_position_search"
-          "/maps/search/AddrNearestPosSearch?params="
+          "/ocsp/v2/search/km2_AddrNearestPosSearch.json?"
         else #geocoding
-          "/maps/geocode/GetGeocodeByAddr?params="
+          "/giop/rest/geocode/Geocode.json?"
         end
       host + path
     end
@@ -228,7 +226,7 @@ module Geocoder::Lookup
         # s: "AN" means it will return old / new style addresses.
         #
         hash = {
-          query: URI.encode(query.text),
+          query: query.sanitized_text,
           option: "1",
           s: "AN",
           places: query.options[:places],
@@ -270,36 +268,27 @@ module Geocoder::Lookup
         }
       when "addr_nearest_position_search"
         hash = {
-          px: query.options[:px],
-          py: query.options[:py],
-          radius: query.options[:radius]
+          PX: query.options[:px],
+          PY: query.options[:py],
+          RADIUS: query.options[:radius]
         }
       else # geocoding
         hash = {
-          addr: URI.encode(query.sanitized_text),
-          addrcdtype: Olleh.addrcdtype[query.options[:addrcdtype]]
+          addr: query.sanitized_text,
+          addrcdtype: Olleh.addrcdtype[query.options[:addrcdtype]] || 0
         }
       end
 
-      hash.merge!(timestamp: now)
-      JSON.generate(hash)
-    end
-
-    def now
-      Time.now.strftime("%Y%m%d%H%M%S%L")
+      hash.merge!(key: configuration.api_key)
+      hash
     end
 
     def url_query_string(query)
-      URI.encode(
-        query_url_params(query)
-      ).gsub(':','%3A').gsub(',','%2C').gsub('https%3A', 'https:')
+      URI.encode_www_form(query_url_params(query))
     end
 
-    ##
-    # Need to delete timestamp from cache_key to hit cache
-    #
     def cache_key(query)
-      Geocoder.config[:cache_prefix] + query_url(query).split('timestamp')[0]
+      Geocoder.config[:cache_prefix] + query_url(query)
     end
   end
 end

@@ -5,10 +5,7 @@ class OllehTest < GeocoderTestCase
 
   def setup
     Geocoder.configure(lookup: :olleh, olleh: {
-      basic_auth: {
-        user: 'OllehMapAPI0100',
-        password: 'bncT89dfRT'
-      }
+      api_key: 'API_KEY'
     })
   end
 
@@ -21,10 +18,7 @@ class OllehTest < GeocoderTestCase
 
     # change the config
     Geocoder.configure(lookup: :olleh, olleh: {
-      basic_auth: {
-        user: 'OllehMapAPI0100',
-        password: 'bncT89dfRT'
-      },
+      api_key: 'API_KEY',
       use_https: true
     })
 
@@ -35,7 +29,7 @@ class OllehTest < GeocoderTestCase
   def test_query_for_geocode
     lookup = Geocoder::Lookup::Olleh.new
     url = lookup.query_url(Geocoder::Query.new('서울특별시 강남구 삼성동 168-1'))
-    assert url.include?('addr%22%3A%22%25EC%2584%259C%25EC%259A%25B8%25ED%258A%25B9%25EB%25B3%2584%25EC%258B%259C%2520%25EA%25B0%2595%25EB%2582%25A8%25EA%25B5%25AC%2520%25EC%2582%25BC%25EC%2584%25B1%25EB%258F%2599%2520168-1%22'), "Invalide address parsing"
+    assert url.include?('addr=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99+168-1'), "Invalide address parsing"
   end
 
   def test_search_by_location_name
@@ -88,8 +82,8 @@ class OllehTest < GeocoderTestCase
       query2 = Geocoder::Query.new(busan, {addrcdtype: 'law'})
       r1 = lookup.search(query1).first
       r2 = lookup.search(query2).first
-      assert_equal r1.address, "서울특별시 서초구 서초동 1337-6"
-      assert_equal r1.coordinates, [958369, 1943657]
+      assert_equal r1.address, "서울특별시 서초구 서초동 1337-2"
+      assert_equal r1.coordinates, [958346, 1943737]
       assert_equal r2.address, "부산광역시 동구 초량동 1187-1"
       assert_equal r2.coordinates, [1140600, 1681210]
     end
@@ -99,7 +93,7 @@ class OllehTest < GeocoderTestCase
     query = Geocoder::Query.new('삼성동', {:addrcdtype => 'law'})
     lookup = Geocoder::Lookup::Olleh.new
     url_with_params = lookup.query_url(query)
-    assert url_with_params.include? '%22addrcdtype%22%3A0%2C%22'
+    assert url_with_params.include? 'addrcdtype=0'
   end
 
   def test_check_query_type
@@ -107,24 +101,6 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new('삼성동',{:addrcdtype => 'law'})
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal 2, lookup.search(query).count
-    end
-  end
-
-  def test_olleh_result_components
-    VCR.use_cassette("geocode/samseong-dong-law") do
-      query = Geocoder::Query.new('삼성동',{:addrcdtype => 'law'})
-
-      lookup = Geocoder::Lookup::Olleh.new
-      result = lookup.search(query).first
-
-      assert_equal '서울특별시 강남구 삼성동', result.address
-      assert_equal 'South Korea', result.country
-      assert_equal '서울특별시', result.city
-      assert_equal '강남구', result.gu
-
-      assert_equal '삼성동', result.dong
-      assert_equal '1168010500', result.dong_code
-      assert_equal [960713, 1946274], result.coordinates
     end
   end
 
@@ -179,8 +155,8 @@ class OllehTest < GeocoderTestCase
       })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
-      assert_equal '15712', result.total_dist
-      assert_equal '43.05', result.total_time
+      assert_equal '15237', result.total_dist
+      assert_equal '48.28', result.total_time
     end
 
     VCR.use_cassette("route/compare_high_way_to_freeway_1") do
@@ -195,8 +171,8 @@ class OllehTest < GeocoderTestCase
       })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
-      assert_equal result.total_dist, '388240'
-      assert_equal result.total_time, '254.3'
+      assert_equal result.total_dist, '388197'
+      assert_equal result.total_time, '275.12'
     end
 
     VCR.use_cassette("route/compare_high_way_to_freeway_2") do
@@ -211,8 +187,8 @@ class OllehTest < GeocoderTestCase
       })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
-      assert_equal result.total_dist, '410536'
-      assert_equal result.total_time, '423.58'
+      assert_equal result.total_dist, '411976'
+      assert_equal result.total_time, '452.35'
     end
   end
 
@@ -232,8 +208,8 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal true, lookup.query_url(query1).include?("VX1")
       result = lookup.search(query1).first
-      assert_equal '23790', result.total_dist
-      assert_equal '28.21', result.total_time
+      assert_equal '23730', result.total_dist
+      assert_equal '55.08', result.total_time
     end
 
     VCR.use_cassette("route/waypoints_with_different_order_2") do
@@ -251,8 +227,8 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       assert_equal true, lookup.query_url(query2).include?("VX1")
       result = lookup.search(query2).first
-      assert_equal '42257', result.total_dist
-      assert_equal '45.08', result.total_time
+      assert_equal '38281', result.total_dist
+      assert_equal '80.43', result.total_time
     end
   end
 
@@ -276,8 +252,8 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
       assert_equal true, lookup.query_url(query).include?("VX3")
-      assert_equal '37662', result.total_dist
-      assert_equal '108.17', result.total_time
+      assert_equal '37907', result.total_dist
+      assert_equal '111.54', result.total_time
     end
   end
 
@@ -286,39 +262,39 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new('서초동 1337', { places: 70, sr: 'RANK', isaddr: 'search_address_only' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result[0].old_addr, "서울특별시 서초구 서초2동 1337"
-      assert_equal result[0].new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result[0].old_addr, "서울특별시  서초구 서초2동  1337"
+      assert_equal result[0].new_addr, "서울특별시  서초구  사임당로 174"
 
-      assert_equal result[1].old_addr, "서울특별시 서초구 서초동 1337"
-      assert_equal result[1].new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result[1].old_addr, "서울특별시  서초구 서초동  1337"
+      assert_equal result[1].new_addr, "서울특별시  서초구  사임당로 174"
 
-      assert_equal result[2].old_addr, "서울특별시 서초구 서초2동 1337-1"
-      assert_equal result[2].new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result[2].old_addr, "서울특별시  서초구 서초2동  1337-1"
+      assert_equal result[2].new_addr, "서울특별시  서초구  사임당로 174"
 
-      assert_equal result[3].old_addr, "서울특별시 서초구 서초동 1337-1"
-      assert_equal result[3].new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result[3].old_addr, "서울특별시  서초구 서초동  1337-1"
+      assert_equal result[3].new_addr, "서울특별시  서초구  사임당로 174"
 
-      assert_equal result[4].old_addr, "서울특별시 서초구 서초동 1337-2"
-      assert_equal result[4].new_addr, "서울특별시 서초구  효령로77길 34"
+      assert_equal result[4].old_addr, "서울특별시  서초구 서초2동  1337-2"
+      assert_equal result[4].new_addr, "서울특별시  서초구  효령로77길 34"
     end
 
     VCR.use_cassette("address/km2_local_search_2") do
       query = Geocoder::Query.new('서초동 1337-1', { places: 70, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result.first.old_addr, "서울특별시 서초구 서초동 1337-1"
-      assert_equal result.first.new_addr, "서울특별시 서초구  사임당로 174"
-      assert_equal result.last.old_addr, "서울특별시 서초구 서초2동 1337-1"
-      assert_equal result.last.new_addr, "서울특별시 서초구  사임당로 174"
+      assert_equal result.first.old_addr, "서울특별시  서초구 서초동  1337-1"
+      assert_equal result.first.new_addr, "서울특별시  서초구  사임당로 174"
+      assert_equal result.last.old_addr, "서울특별시  서초구 서초2동  1337-1"
+      assert_equal result.last.new_addr, "서울특별시  서초구  사임당로 174"
     end
 
     VCR.use_cassette("address/km2_local_search_3") do
       query = Geocoder::Query.new('서초동 1337-7', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-7"
+      assert_equal result[0].old_addr, "서울특별시  서초구 서초동  1337-7"
       assert_equal result[0].new_addr, ""
-      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-7"
+      assert_equal result[1].old_addr, "서울특별시  서초구 서초2동  1337-7"
       assert_equal result[1].new_addr, ""
     end
 
@@ -326,9 +302,9 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new('서초동 1337-16', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-16"
+      assert_equal result[0].old_addr, "서울특별시  서초구 서초동  1337-16"
       assert_equal result[0].new_addr, ""
-      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-16"
+      assert_equal result[1].old_addr, "서울특별시  서초구 서초2동  1337-16"
       assert_equal result[1].new_addr, ""
     end
 
@@ -336,18 +312,18 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new('서초동 1337-34', { places: 5, sr: 'RANK', isaddr: 'search_names_too' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-34"
-      assert_equal result[0].new_addr, "서울특별시 서초구  강남대로 331"
-      assert_equal result[1].old_addr, "서울특별시 서초구 서초2동 1337-34"
-      assert_equal result[1].new_addr, "서울특별시 서초구  강남대로 331"
+      assert_equal result[0].old_addr, "서울특별시  서초구 서초동  1337-34"
+      assert_equal result[0].new_addr, "서울특별시  서초구  강남대로 331"
+      assert_equal result[1].old_addr, "서울특별시  서초구 서초2동  1337-34"
+      assert_equal result[1].new_addr, "서울특별시  서초구  강남대로 331"
     end
 
     VCR.use_cassette("address/km2_local_search_6") do
       query = Geocoder::Query.new('사임당로 174', { places: 100, sr: 'RANK', isaddr: 'search_address_only' })
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query)
-      assert_equal result[0].old_addr, "서울특별시 서초구 서초동 1337-1"
-      assert_equal result[0].new_addr, "서울특별시 서초구 사임당로 174"
+      assert_equal result[0].old_addr, "서울특별시 서초구 서초동  1337-1"
+      assert_equal result[0].new_addr, "서울특별시 서초구  사임당로 174"
     end
 
     VCR.use_cassette("address/km2_local_search_7") do
@@ -372,10 +348,10 @@ class OllehTest < GeocoderTestCase
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
       assert_equal '서울특별시', result.addr_step_sido
-      assert_equal '종로구', result.addr_step_sigungu
-      assert_equal '11110', result.addr_step_l_code
-      assert_equal ['954050', '1952755'], result.coordinates
-      assert_equal '009000023000000', result.addr_step_p_code
+      assert_equal nil, result.addr_step_sigungu
+      assert_equal '11', result.addr_step_l_code
+      assert_equal ['953887', '1952015'], result.coordinates
+      assert_equal '009000000000000', result.addr_step_p_code
     end
   end
 
@@ -384,8 +360,8 @@ class OllehTest < GeocoderTestCase
       query = Geocoder::Query.new('', {l_code: 11})
       lookup = Geocoder::Lookup::Olleh.new
       result = lookup.search(query).first
-      assert_equal ['954050', '1952755'], result.coordinates
-      assert_equal ["126.97963993563258", "37.57302324409918"], result.wgs_coordinates
+      assert_equal ['953887', '1952015'], result.coordinates
+      assert_equal ["126.97784067989703", "37.56634533664751"], result.wgs_coordinates
     end
   end
 

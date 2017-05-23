@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/geocode/GetAddrByGeocode?params=%7B%22x%22:960713,%22y%22:1946274,%22addrcdtype%22:0,%22newAddr%22:1,%22isJibun%22:1,%22timestamp%22:%2220150706173711043%22%7D
+    uri: http://api.ollehmap.com:10082/giop/rest/geocode/Rgeocode.json?addrcdtype=0&isJibun=1&key=API_KEY&newAddr=1&x=960713&y=1946274
     body:
       encoding: US-ASCII
       string: ''
@@ -18,27 +18,37 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/json;charset=UTF-8
       Date:
-      - Mon, 06 Jul 2015 05:38:26 GMT
+      - Tue, 23 May 2017 02:42:13 GMT
       Server:
-      - Apache
-      Content-Length:
-      - '575'
-      Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=]s7NMJgJ0FrLkTf1GlTQ; path=/; secure; HttpOnly
+      - Apache/2.2.19 (Unix) mod_jk/1.2.35 mod_ssl/2.2.19 OpenSSL/0.9.8e-fips-rhel5
+        DAV/2
+      Content-Language:
+      - en-US
+      Connection:
+      - close
+      Access-Control-Allow-Headers:
+      - x-requested-with
       Access-Control-Allow-Origin:
       - "*"
-      X-Powered-By:
-      - Servlet/2.5 JSP/2.1
-      Usedhandler:
-      - IPBasedSLAHandlerREST
-      Nncoection:
-      - close
-      Content-Type:
-      - application/json
+      Access-Control-Max-Age:
+      - '360'
+      Access-Control-Allow-Methods:
+      - GET,POST
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Length:
+      - '203'
     body:
-      encoding: UTF-8
-      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"dbf55386-423e-3a5d-af17-a047d0baf8d8","payload":"%7B%22RESDATA%22%3A%7B%22COUNT%22%3A1%2C%22ADDRS%22%3A%5B%7B%22DONG_CODE%22%3A%221168010500%22%2C%22ADDRESS%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99+74-14%22%2C%22Y%22%3A1946327%2C%22X%22%3A960716%7D%5D%7D%2C%22ID%22%3A%22502%22%2C%22ERRCD%22%3A0%2C%22NO%22%3A%22dbf55386-423e-3a5d-af17-a047d0baf8d8%22%2C%22ERRMS%22%3A%22SUCCESS%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
-    http_version:
-  recorded_at: Mon, 06 Jul 2015 07:16:22 GMT
-recorded_with: VCR 2.9.3
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJSRVNEQVRBIjp7IkNPVU5UIjoxLCJBRERSUyI6W3siRE9OR19DT0RFIjoi
+        MTE2ODAxMDUwMCIsIkFERFJFU1MiOiLshJzsmrjtirnrs4Tsi5wg6rCV64Ko
+        6rWsIOyCvOyEseuPmSA3NC0xNCIsIlkiOjE5NDYzMjcsIlgiOjk2MDcxNn1d
+        fSwiSUQiOiI1MDIiLCJFUlJDRCI6MCwiTk8iOiJjS3V3LTIwMTcwNTIzMTE0
+        MjEzIiwiRVJSTVMiOiJTVUNDRVNTIn0=
+    http_version: 
+  recorded_at: Tue, 23 May 2017 02:20:16 GMT
+recorded_with: VCR 3.0.3

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/AddrNearestPosSearch?params=%7B%22px%22:966759,%22py%22:1947935,%22radius%22:100,%22timestamp%22:%2220151124153333507%22%7D
+    uri: http://api.ollehmap.com:10082/ocsp/v2/search/km2_AddrNearestPosSearch.json?PX=966759&PY=1947935&RADIUS=100&key=API_KEY
     body:
       encoding: US-ASCII
       string: ''
@@ -18,27 +18,44 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/json;charset=utf-8
       Date:
-      - Tue, 24 Nov 2015 07:33:34 GMT
+      - Tue, 23 May 2017 02:32:54 GMT
       Server:
-      - Apache
-      Content-Length:
-      - '1002'
-      Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=T]4VTL[NieQywKUdwpLl; path=/; secure; HttpOnly
+      - Apache/2.2.21 (Unix) mod_jk/1.2.30
+      Content-Language:
+      - ko-KR
+      Connection:
+      - close
+      Access-Control-Allow-Headers:
+      - x-requested-with
       Access-Control-Allow-Origin:
       - "*"
-      X-Powered-By:
-      - Servlet/2.5 JSP/2.1
-      Usedhandler:
-      - IPBasedSLAHandlerREST
-      Cneonction:
-      - close
-      Content-Type:
-      - application/json
+      Access-Control-Max-Age:
+      - '360'
+      Access-Control-Allow-Methods:
+      - GET,POST
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Length:
+      - '553'
     body:
-      encoding: UTF-8
-      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"7e6297a6-bed8-330e-a187-8b31336fea50","payload":"%7B%22RESULTDATA%22%3A%5B%7B%22BON_BUN%22%3A%22540%22%2C%22P_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22L_SIGUN_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22SIDO%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%22%2C%22GIBUN%22%3A%22540%22%2C%22P_DONG%22%3A%22%EC%84%B1%EB%82%B4%EB%8F%99%22%2C%22H_SIGUN_GU%22%3A%22%EA%B0%95%EB%8F%99%EA%B5%AC%22%2C%22L_DONG%22%3A%22%EC%84%B1%EB%82%B4%EB%8F%99%22%2C%22H_DONG%22%3A%22%EC%84%B1%EB%82%B41%EB%8F%99%22%2C%22P_LI%22%3Anull%2C%22L_CODE%22%3A%221174010800%22%2C%22L_LI%22%3Anull%2C%22P_SIGUN%22%3Anull%2C%22Y%22%3A%221947931.71%22%2C%22COORDTYPE%22%3A%22UTMK%22%2C%22H_CODE%22%3A%2211740640%22%2C%22X%22%3A%22966750.79%22%2C%22P_CODE%22%3A%22009000002016000%22%2C%22BU_BUN%22%3A%220%22%7D%5D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%22908%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJSRVNVTFREQVRBIjpbeyJCT05fQlVOIjoiNTQwIiwiTV9ORVdBRERSMSI6
+        IuyEnOyauO2KueuzhOyLnCDqsJXrj5nqtawgIiwiUF9HVSI6IuqwleuPmeq1
+        rCIsIlBOVSI6IjExNzQwMTA4MDAxMDU0MDAwMDAiLCJSRF9DRCI6IjExNzQw
+        MzEyNDAwNiIsIkxfU0lHVU5fR1UiOiLqsJXrj5nqtawiLCJST0FEX05BTUUi
+        OiLshLHrgrTroZwiLCJCVUlMRF9OTyI6IjI1IiwiU0lETyI6IuyEnOyauO2K
+        ueuzhOyLnCIsIkdJQlVOIjoiNTQwIiwiUF9ET05HIjoi7ISx64K064+ZIiwi
+        SF9TSUdVTl9HVSI6IuqwleuPmeq1rCIsIkhfRE9ORyI6IuyEseuCtDHrj5ki
+        LCJMX0RPTkciOiLshLHrgrTrj5kiLCJQX0xJIjpudWxsLCJMX0NPREUiOiIx
+        MTc0MDEwODAwIiwiUF9TSUdVTiI6bnVsbCwiTF9MSSI6bnVsbCwiWSI6IjE5
+        NDc5MzEuNzEiLCJDT09SRFRZUEUiOiJVVE1LIiwiSF9DT0RFIjoiMTE3NDA2
+        NDAiLCJYIjoiOTY2NzUwLjc5IiwiUF9DT0RFIjoiMDA5MDAwMDAyMDE2MDAw
+        IiwiQlVfQlVOIjoiMCJ9XSwiRVJSTVNHIjoiIiwiRVJSQ09ERSI6IjAiLCJB
+        UElJRCI6IjExMTIifQ==
     http_version: 
-  recorded_at: Tue, 24 Nov 2015 07:33:34 GMT
-recorded_with: VCR 3.0.0
+  recorded_at: Tue, 23 May 2017 02:32:54 GMT
+recorded_with: VCR 3.0.3

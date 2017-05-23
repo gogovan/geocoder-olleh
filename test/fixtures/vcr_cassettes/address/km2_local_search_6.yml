@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://OllehMapAPI0100:bncT89dfRT@openapi.kt.com/maps/search/km2_LocalSearch?params=%7B%22query%22:%22%25EC%2582%25AC%25EC%259E%2584%25EB%258B%25B9%25EB%25A1%259C%2520174%22,%22option%22:%221%22,%22s%22:%22AN%22,%22places%22:100,%22sr%22:%22RANK%22,%22isaddr%22:1,%22timestamp%22:%2220151217144050704%22%7D
+    uri: http://api.ollehmap.com:10082/ocsp/v2/search/km2_LocalSearch.json?isaddr=1&key=API_KEY&option=1&places=100&query=%EC%82%AC%EC%9E%84%EB%8B%B9%EB%A1%9C%20174&s=AN&sr=RANK
     body:
       encoding: US-ASCII
       string: ''
@@ -18,27 +18,46 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/json;charset=utf-8
       Date:
-      - Thu, 17 Dec 2015 06:40:51 GMT
+      - Tue, 23 May 2017 02:26:53 GMT
       Server:
-      - Apache
-      Content-Length:
-      - '1477'
-      Set-Cookie:
-      - _WL_AUTHCOOKIE_JSESSIONID=qpvstX0RqBNaFc0EtBdp; path=/; secure; HttpOnly
+      - Apache/2.2.21 (Unix) mod_jk/1.2.30
+      Content-Language:
+      - ko-KR
+      Connection:
+      - close
+      Access-Control-Allow-Headers:
+      - x-requested-with
       Access-Control-Allow-Origin:
       - "*"
-      X-Powered-By:
-      - Servlet/2.5 JSP/2.1
-      Usedhandler:
-      - IPBasedSLAHandlerREST
-      Cneonction:
-      - close
-      Content-Type:
-      - application/json
+      Access-Control-Max-Age:
+      - '360'
+      Access-Control-Allow-Methods:
+      - GET,POST
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Length:
+      - '662'
     body:
-      encoding: UTF-8
-      string: '{"sequenceno":"9999","errordescription":null,"returncode":"1","transactionid":"5a30307b-3ea6-32d7-9ac9-891b7660ae1b","payload":"%7B%22RESULTDATA%22%3A%7B%22QueryResult%22%3A%7B%22Querystr%22%3A%22%EC%82%AC%EC%9E%84%EB%8B%B9%EB%A1%9C+174%22%2C%22r_query%22%3A%22%22%2C%22Kmwords%22%3A%22%EC%82%AC%EC%9E%84%EB%8B%B9%EB%A1%9C+%EC%82%AC%EC%9E%84+%EB%8B%B9%EB%A1%9C+174+%22%2C%22isJulim%22%3A%220%22%2C%22PoiQuery%22%3Anull%7D%2C%22na_result%22%3A%7B%22r_query%22%3A%22174%22%2C%22road_name%22%3A%22%EC%82%AC%EC%9E%84%EB%8B%B9%EB%A1%9C%22%7D%2C%22New_addrs%22%3A%7B%22Data%22%3A%5B%7B%22INDEX%22%3A%221%22%2C%22NEW_ADDR%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%84%9C%EC%B4%88%EA%B5%AC++%EC%82%AC%EC%9E%84%EB%8B%B9%EB%A1%9C+174%22%2C%22M_ADDR2%22%3A%22%EC%84%9C%EC%B4%88%EB%8F%99++1337-1%22%2C%22DONG_CODE%22%3A%221165010800%22%2C%22M_ADDR1%22%3A%22%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%84%9C%EC%B4%88%EA%B5%AC%22%2C%22RD_CD%22%3A%22116503121014%22%2C%22M_CNT%22%3A%222%22%2C%22Y%22%3A%221943784.545%22%2C%22X%22%3A%22958323.644%22%2C%22NOW_PAGE%22%3A%220%22%7D%5D%2C%22Count%22%3A1%2C%22TotalCount%22%3A1%7D%2C%22addr%22%3A%7B%22Data%22%3A%5B%5D%2C%22Count%22%3A0%2C%22TotalCount%22%3A0%7D%2C%22searchType%22%3A%7B%22orgType%22%3A%22B%22%2C%22use_option%22%3A%222%22%2C%22realType%22%3A%22H%22%2C%22option%22%3A%221%22%7D%7D%2C%22ERRMSG%22%3A%22%22%2C%22ERRCODE%22%3A%220%22%2C%22APIID%22%3A%221101%22%7D","errorcode":null,"returndescription":"SUCCESS"}'
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJSRVNVTFREQVRBIjp7IlF1ZXJ5UmVzdWx0Ijp7IlF1ZXJ5c3RyIjoi7IKs
+        7J6E64u566GcIDE3NCIsInJfcXVlcnkiOiIiLCJLbXdvcmRzIjoi7IKs7J6E
+        64u566GcIOyCrOyehCDri7nroZwgMTc0ICIsImlzSnVsaW0iOiIwIiwiUG9p
+        UXVlcnkiOm51bGx9LCJuYV9yZXN1bHQiOnsicl9xdWVyeSI6IjE3NCIsInJv
+        YWRfbmFtZSI6IuyCrOyehOuLueuhnCJ9LCJOZXdfYWRkcnMiOnsiRGF0YSI6
+        W3siSU5ERVgiOiIxIiwiTkVXX0FERFIiOiLshJzsmrjtirnrs4Tsi5wg7ISc
+        7LSI6rWsICDsgqzsnoTri7nroZwgMTc0IiwiTV9BRERSMiI6IuyEnOy0iOuP
+        mSAgMTMzNy0xIiwiRE9OR19DT0RFIjoiMTE2NTAxMDgwMCIsIk1fQUREUjEi
+        OiLshJzsmrjtirnrs4Tsi5wg7ISc7LSI6rWsIiwiUkRfQ0QiOiIxMTY1MDMx
+        MjEwMTQiLCJNX0NOVCI6IjIiLCJZIjoiMTk0Mzc4NC41NDUiLCJYIjoiOTU4
+        MzIzLjY0NCIsIk5PV19QQUdFIjoiMCJ9XSwiQ291bnQiOjEsIlRvdGFsQ291
+        bnQiOjF9LCJhZGRyIjp7IkRhdGEiOltdLCJDb3VudCI6MCwiVG90YWxDb3Vu
+        dCI6MH0sInNlYXJjaFR5cGUiOnsib3JnVHlwZSI6IkIiLCJ1c2Vfb3B0aW9u
+        IjoiMiIsInJlYWxUeXBlIjoiSCIsIm9wdGlvbiI6IjEifX0sIkVSUk1TRyI6
+        IiIsIkVSUkNPREUiOiIwIiwiQVBJSUQiOiIxMTAxIn0=
     http_version: 
-  recorded_at: Thu, 17 Dec 2015 06:40:51 GMT
-recorded_with: VCR 3.0.0
+  recorded_at: Tue, 23 May 2017 02:26:53 GMT
+recorded_with: VCR 3.0.3
