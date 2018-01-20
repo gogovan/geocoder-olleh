@@ -284,7 +284,6 @@ module Geocoder::Lookup
     end
 
     def url_query_string(query)
-      p "OLLEH URL: " + URI.encode_www_form(query_url_params(query))
       URI.encode_www_form(query_url_params(query))
     end
 
