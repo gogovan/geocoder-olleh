@@ -284,6 +284,7 @@ module Geocoder::Lookup
     end
 
     def url_query_string(query)
+      Geocoder.log(:info, "Olleh Map API calls: #{URI.encode_www_form(query_url_params(query))}")
       URI.encode_www_form(query_url_params(query))
     end
 
