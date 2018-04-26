@@ -229,7 +229,6 @@ module Geocoder::Lookup
         hash = {
           query: query.sanitized_text,
           option: "1",
-          s: "AN",
           places: query.options[:places],
           sr: query.options[:sr],
           isaddr: Olleh.new_addr_search_options[query.options[:isaddr]] || "1"
